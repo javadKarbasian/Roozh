@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         AppCompatTextView textView = (AppCompatTextView) findViewById(R.id.output);
-        Roozh roozh = new Roozh().gregorianToPersian(System.currentTimeMillis());
+        // Roozh with current time
+        Roozh roozh = new Roozh().gregorianToPersian();
         RoozhFormatter formatter = new RoozhFormatter();
         formatter.appendDayOfMonth().appendSpace().appendMonth().appendSpace().appendYear();
         textView.setText(formatter.build(roozh));
