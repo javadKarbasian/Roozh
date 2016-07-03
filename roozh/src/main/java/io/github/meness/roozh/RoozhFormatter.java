@@ -154,7 +154,7 @@ public class RoozhFormatter {
      * @see RoozhFormatter#build(Roozh)
      */
     public String build() {
-        return build(new Roozh().gregorianToPersian(System.currentTimeMillis()));
+        return build(new Roozh().gregorianToPersian());
     }
 
     /**
