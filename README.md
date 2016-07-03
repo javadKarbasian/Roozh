@@ -34,11 +34,11 @@ Clone this repository or download the compressed file, then extract to your comp
 ## Usage
 ```java
 RoozhFormatter formatter = new RoozhFormatter()
-    .appendDayOfMonth()
-    .appendSpace()
-    .appendMonth()
-    .appendSpace()
-    .appendYear(4);
+	.appendDayOfMonth(false)
+	.appendSpace()
+	.appendMonthFullName()
+	.appendSpace()
+	.appendYear(false);
 // Format with current time
 String formatted = formatter.build();
 ```
