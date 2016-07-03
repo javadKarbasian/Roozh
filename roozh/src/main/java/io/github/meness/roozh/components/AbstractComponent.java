@@ -46,7 +46,7 @@ public abstract class AbstractComponent {
         minDigits = i < minDigits ? minDigits : i;
         return this;
     }
-    
+
     public Presentation getPresentation() {
         return presentation;
     }
