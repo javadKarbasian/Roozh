@@ -16,6 +16,9 @@
 
 package io.github.meness.roozh;
 
+/**
+ * @since 2.0
+ */
 public enum Presentation {
     TEXT, YEAR, MONTH, NUMBER
 }

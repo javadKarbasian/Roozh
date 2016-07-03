@@ -23,6 +23,9 @@ import io.github.meness.roozh.components.DayOfMonth;
 import io.github.meness.roozh.components.Month;
 import io.github.meness.roozh.components.Year;
 
+/**
+ * @since 2.0
+ */
 public class RoozhFormatter {
     private ArrayList<Object> elements = new ArrayList<>();
 

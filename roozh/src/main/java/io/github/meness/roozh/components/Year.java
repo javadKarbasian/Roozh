@@ -18,6 +18,9 @@ package io.github.meness.roozh.components;
 
 import io.github.meness.roozh.Presentation;
 
+/**
+ * @since 2.0
+ */
 public class Year extends AbstractComponent {
     public Year() {
         super(2, Presentation.YEAR);

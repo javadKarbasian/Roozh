@@ -18,6 +18,9 @@ package io.github.meness.roozh.components;
 
 import io.github.meness.roozh.Presentation;
 
+/**
+ * @since 2.0
+ */
 public abstract class AbstractComponent {
     private static int MAX_DIGITS = 4;
     private int minDigits = 1;
