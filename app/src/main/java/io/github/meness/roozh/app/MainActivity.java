@@ -20,7 +20,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 
-import io.github.meness.roozh.Roozh;
 import io.github.meness.roozh.RoozhFormatter;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,9 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
         AppCompatTextView textView = (AppCompatTextView) findViewById(R.id.output);
         // Roozh with current time
-        Roozh roozh = new Roozh().gregorianToPersian();
-        RoozhFormatter formatter = new RoozhFormatter();
-        formatter.appendDayOfMonth().appendSpace().appendMonth().appendSpace().appendYear();
-        textView.setText(formatter.build(roozh));
+        RoozhFormatter formatter = new RoozhFormatter()
+                .appendDayOfMonth()
+                .appendSpace()
+                .appendMonth()
+                .appendSpace()
+                .appendYear(4);
+        textView.setText(formatter.build());
     }
 }
