@@ -17,7 +17,6 @@
 package io.github.meness.roozh;
 
 import java.util.Calendar;
-import java.util.Locale;
 
 /**
  * This class contains methods for converting Jalali (Solar) and Gregorian dates
@@ -35,16 +34,6 @@ public class Roozh {
     private int iJY, iJM, iJD;
     private int iGY, iGM, iGD;
     private int iLeap, iMarch;
-
-    /**
-     * Modified <code>toString()</code> method that represents date string
-     *
-     * @return Date as <code>String</code>
-     */
-    @Override
-    public String toString() {
-        return String.format(Locale.US, "%02d %s %02d", getDayOfMonth(), Months.getPersianName(getMonth()), getYear());
-    }
 
     /**
      * Get manipulated day
