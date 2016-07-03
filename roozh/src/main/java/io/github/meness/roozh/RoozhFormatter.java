@@ -84,46 +84,64 @@ public class RoozhFormatter {
     }
 
     /**
-     * Append day of month with minimum digits
+     * Append day of month with leading zero or not
      *
      * @return this
-     * @see RoozhFormatter#appendDayOfMonth()
      */
-    public RoozhFormatter appendDayOfMonth(int minDigits) {
-        elements.add(new DayOfMonth().setMinimumLength(minDigits));
+    public RoozhFormatter appendDayOfMonth(boolean leadingZero) {
+        elements.add(new DayOfMonth().setMinimumLength(leadingZero ? 2 : 1));
         return this;
     }
 
     /**
-     * Append day of month with default minimum digits
-     *
-     * @return this
-     * @see RoozhFormatter#appendDayOfMonth(int)
-     */
-    public RoozhFormatter appendDayOfMonth() {
-        elements.add(new DayOfMonth());
-        return this;
-    }
-
-    /**
-     * Append month with minimum digits
+     * Append month with leading zero
      *
      * @return this
      * @see RoozhFormatter#appendMonth()
+     * @see RoozhFormatter#appendMonthFullName()
+     * @see RoozhFormatter#appendMonthShortName()
      */
-    public RoozhFormatter appendMonth(int minDigits) {
-        elements.add(new Month().setMinimumLength(minDigits));
+    public RoozhFormatter appendMonthLeadingZero() {
+        elements.add(new Month().setMinimumLength(2));
         return this;
     }
 
     /**
-     * Append month with default minimum digits
+     * Append month number with no leading zero
      *
      * @return this
-     * @see RoozhFormatter#appendMonth(int)
+     * @see RoozhFormatter#appendMonthLeadingZero()
+     * @see RoozhFormatter#appendMonthFullName()
+     * @see RoozhFormatter#appendMonthShortName()
      */
     public RoozhFormatter appendMonth() {
-        elements.add(new Month());
+        elements.add(new Month().setMinimumLength(1));
+        return this;
+    }
+
+    /**
+     * Append month with short name
+     *
+     * @return this
+     * @see RoozhFormatter#appendMonth()
+     * @see RoozhFormatter#appendMonthLeadingZero()
+     * @see RoozhFormatter#appendMonthFullName()
+     */
+    public RoozhFormatter appendMonthShortName() {
+        elements.add(new Month().setMinimumLength(3));
+        return this;
+    }
+
+    /**
+     * Append month with full name
+     *
+     * @return this
+     * @see RoozhFormatter#appendMonth()
+     * @see RoozhFormatter#appendMonthLeadingZero()
+     * @see RoozhFormatter#appendMonthShortName()
+     */
+    public RoozhFormatter appendMonthFullName() {
+        elements.add(new Month().setMinimumLength(4));
         return this;
     }
 
@@ -131,21 +149,9 @@ public class RoozhFormatter {
      * Append year with minimum digits
      *
      * @return this
-     * @see RoozhFormatter#appendYear()
      */
-    public RoozhFormatter appendYear(int minDigits) {
-        elements.add(new Year().setMinimumLength(minDigits));
-        return this;
-    }
-
-    /**
-     * Append year with default minimum digits
-     *
-     * @return this
-     * @see RoozhFormatter#appendYear(int)
-     */
-    public RoozhFormatter appendYear() {
-        elements.add(new Year());
+    public RoozhFormatter appendYear(boolean shortYear) {
+        elements.add(new Year().setMinimumLength(shortYear ? 2 : 4));
         return this;
     }
 
@@ -194,9 +200,19 @@ public class RoozhFormatter {
     private String formatByPresentation(AbstractComponent component, Roozh roozh) {
         switch (component.getPresentation()) {
             case MONTH:
-                return Roozh.Months.getPersianName(roozh.getMonth());
+                if (component.getMinimumLength() <= 1) {
+                    return Integer.toString(roozh.getMonth());
+                } else if (component.getMinimumLength() == 2) {
+                    return formatByLeadingZero(roozh.getMonth());
+                } else if (component.getMinimumLength() == 3) {
+                    return Roozh.Months.Short.getName(roozh.getMonth());
+                }
+                return Roozh.Months.getName(roozh.getMonth());
             case NUMBER:
-                return Integer.toString(roozh.getDayOfMonth());
+                if (component.getMinimumLength() <= 1) {
+                    return Integer.toString(roozh.getDayOfMonth());
+                }
+                return formatByLeadingZero(roozh.getDayOfMonth());
             case TEXT:
                 // IMPLEMENT
                 break;
@@ -207,5 +223,19 @@ public class RoozhFormatter {
                 return Integer.toString(roozh.getYear());
         }
         return null;
+    }
+
+    /**
+     * Format by leading zero
+     *
+     * @param i Integer to be formatted
+     * @return Formatted string
+     */
+    private String formatByLeadingZero(int i) {
+        String sI = Integer.toString(i);
+        if (sI.length() == 1) {
+            return new StringBuilder(sI).insert(0, '0').toString();
+        }
+        return sI;
     }
 }
