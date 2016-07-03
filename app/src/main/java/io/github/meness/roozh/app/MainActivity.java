@@ -31,11 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
         AppCompatTextView textView = (AppCompatTextView) findViewById(R.id.output);
         RoozhFormatter formatter = new RoozhFormatter()
-                .appendDayOfMonth()
+                .appendDayOfMonth(false)
                 .appendSpace()
-                .appendMonth()
+                .appendMonthFullName()
                 .appendSpace()
-                .appendYear(4);
+                .appendYear(false);
         // Format with current time
         textView.setText(formatter.build());
     }
