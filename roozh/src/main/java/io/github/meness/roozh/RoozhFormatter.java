@@ -40,6 +40,16 @@ public class RoozhFormatter {
     }
 
     /**
+     * Fields of fresh instance of formatter will be replaced with the old one provided.
+     *
+     * @param formatter Old formatter
+     */
+    public RoozhFormatter(RoozhFormatter formatter) {
+        elements = formatter.elements;
+        stringBuilder = formatter.stringBuilder;
+    }
+
+    /**
      * Last result will be appended to provided string builder
      *
      * @param stringBuilder already defined StringBuilder
