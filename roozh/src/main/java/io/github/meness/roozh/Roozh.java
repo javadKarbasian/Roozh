@@ -51,7 +51,7 @@ public class Roozh {
      * @return Month as <code>int</code>
      */
     public int getMonth() {
-        return iMonth + 1;
+        return iMonth;
     }
 
     /**
@@ -64,7 +64,8 @@ public class Roozh {
     }
 
     public Roozh gregorianToPersian(Calendar calendar) {
-        gregorianToPersian(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        // months start from 0
+        gregorianToPersian(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
         return this;
     }
 
@@ -236,7 +237,8 @@ public class Roozh {
     public Roozh gregorianToPersian(long time) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
-        gregorianToPersian(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        // months start from 0
+        gregorianToPersian(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
         return this;
     }
 
