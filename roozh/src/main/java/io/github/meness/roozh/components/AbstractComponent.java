@@ -19,6 +19,7 @@ package io.github.meness.roozh.components;
 import io.github.meness.roozh.Presentation;
 
 public abstract class AbstractComponent {
+    private static int MAX_DIGITS = 4;
     private int minDigits = 1;
     private Presentation presentation;
 
@@ -43,7 +44,8 @@ public abstract class AbstractComponent {
     }
 
     public AbstractComponent setMinimumLength(int i) {
-        minDigits = i < minDigits ? minDigits : i;
+        // i is between min digits and max digits
+        minDigits = i < minDigits ? minDigits : i > MAX_DIGITS ? MAX_DIGITS : i;
         return this;
     }
 
