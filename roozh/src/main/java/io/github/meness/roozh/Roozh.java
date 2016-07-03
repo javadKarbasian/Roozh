@@ -273,18 +273,37 @@ public class Roozh {
 
     public enum Months {
         FARVARDIN("\u0641\u0631\u0648\u0631\u062f\u06cc\u0646"), ORDIBEHESHT("\u0627\u0631\u062f\u06cc\u0628\u0647\u0634\u062a"), KHORDAD("\u062e\u0631\u062f\u0627\u062f"), TIR("\u062a\u06cc\u0631"), MORDAD("\u0645\u0631\u062f\u0627\u062f"), SHAHRIVAR("\u0634\u0647\u0631\u06cc\u0648\u0631"), MEHR("\u0645\u0647\u0631"), ABAN("\u0622\u0628\u0627\u0646"), AZAR("\u0622\u0630\u0631"), DEY("\u062f\u06cc"), BAHMAN("\u0628\u0647\u0645\u0646"), ESFAND("\u0627\u0633\u0641\u0646\u062f");
-        private final String persianName;
+        private final String sName;
 
-        Months(String persianName) {
-            this.persianName = persianName;
+        Months(String name) {
+            this.sName = name;
         }
 
-        public static String getPersianName(int i) {
-            return Months.values()[i - 1].getPersianName();
+        public static String getName(int i) {
+            // starts from 0
+            return Months.values()[i - 1].getName();
         }
 
-        public String getPersianName() {
-            return persianName;
+        public String getName() {
+            return sName;
+        }
+
+        public enum Short {
+            FARVARDIN("\u0641\u0631\u0648"), ORDIBEHESHT("\u0627\u0631\u062f"), KHORDAD("\u062e\u0631\u062f"), TIR("\u062a\u06cc\u0631"), MORDAD("\u0645\u0631\u062f"), SHAHRIVAR("\u0634\u0647\u0631"), MEHR("\u0645\u0647\u0631"), ABAN("\u0622\u0628\u0627"), AZAR("\u0622\u0630\u0631"), DEY("\u062f\u06cc"), BAHMAN("\u0628\u0647\u0645"), ESFAND("\u0627\u0633\u0641");
+            private final String sName;
+
+            Short(String name) {
+                this.sName = name;
+            }
+
+            public static String getName(int i) {
+                // starts from 0
+                return Months.Short.values()[i - 1].getName();
+            }
+
+            public String getName() {
+                return sName;
+            }
         }
     }
 }
