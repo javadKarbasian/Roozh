@@ -28,9 +28,25 @@ import io.github.meness.roozh.components.Year;
  */
 public class RoozhFormatter {
     private ArrayList<Object> elements = new ArrayList<>();
+    private StringBuilder stringBuilder;
 
+    /**
+     * New string builder will be used
+     *
+     * @see RoozhFormatter#RoozhFormatter(StringBuilder) for providing already defined string builder
+     */
     public RoozhFormatter() {
+        stringBuilder = new StringBuilder();
+    }
 
+    /**
+     * Last result will be appended to provided string builder
+     *
+     * @param stringBuilder already defined StringBuilder
+     * @see RoozhFormatter#RoozhFormatter()
+     */
+    public RoozhFormatter(StringBuilder stringBuilder) {
+        this.stringBuilder = stringBuilder;
     }
 
     /**
@@ -208,7 +224,6 @@ public class RoozhFormatter {
             throw new RuntimeException("You have to put some elements first.");
         }
 
-        StringBuilder stringBuilder = new StringBuilder();
         for (Object element : elements) {
             if (element instanceof String || element instanceof Character) {
                 stringBuilder.append(element);
