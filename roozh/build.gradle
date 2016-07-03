@@ -24,3 +24,11 @@ tasks.withType(JavaCompile) {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
+
+task copyJarFile(type: Copy) {
+    from project(":roozh").buildDir.path + rootDir.separator + 'libs' + rootDir.separator + project(":roozh").name + '.jar'
+    into rootDir.path + rootDir.separator + 'output'
+    include "**/*"
+}
+
+jar.dependsOn copyJarFile

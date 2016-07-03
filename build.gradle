@@ -37,7 +37,3 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
-task processorTask(type: Exec) {
-    commandLine 'cp', '../processor/build/libs/roozh.jar', 'libs/'
-}
