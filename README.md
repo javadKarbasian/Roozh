@@ -26,7 +26,7 @@ But 456 years is a wide enough range to start using this code right now for dail
 
 ## Include to Project
 ### Put `.jar` File into Libs Directory
-Get the provided latest version of the library from root path. Simply put the downloaded file into the libs directory.
+Get the provided latest compiled version of the library from `output` directory.
 
 ### Clone or Download `.zip` file
 Clone this repository or download the compressed file, then extract to your computer. Simply import the library module to your project.
