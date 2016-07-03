@@ -1,23 +1,40 @@
+/*
+ * Copyright 2016 Alireza Eskandarpour Shoferi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package io.github.meness.roozh;
 
+import java.util.Calendar;
 import java.util.Locale;
 
 /**
  * This class contains methods for converting Jalali (Solar) and Gregorian dates
- * into each other based Kazimierz M. Borkowski paper about Jalali date. This
- * class also is a part of Roozh project and originally has inspired by the C#
- * base class by Kaveh Shahbazian.
+ * into each other based Kazimierz M. Borkowski paper about Jalali date.
  *
- * @version 1.0
+ * @author Kaveh Shahbazian
+ * @author Alireza Eskandarpour Shoferi
+ * @version 2.0
  * @see <a href="https://github.com/meNESS/Roozh/">Roozh on Github</a>
  * @see <a href="http://www.astro.uni.torun.pl/~kb/Papers/EMP/PersianC-EMP.htm">The Persian calendar for 3000 years</a>
  */
 
 public class Roozh {
-    private int day, month, year;
-    private int jY, jM, jD;
-    private int gY, gM, gD;
-    private int leap, march;
+    private int iDayOfMonth, iMonth, iYear;
+    private int iJY, iJM, iJD;
+    private int iGY, iGM, iGD;
+    private int iLeap, iMarch;
 
     /**
      * Modified <code>toString()</code> method that represents date string
@@ -26,7 +43,7 @@ public class Roozh {
      */
     @Override
     public String toString() {
-        return String.format(Locale.US, "%02d %s %02d", getDay(), Months.getPersianName(getMonth()), getYear());
+        return String.format(Locale.US, "%02d %s %02d", getDayOfMonth(), Months.getPersianName(getMonth()), getYear());
     }
 
     /**
@@ -34,8 +51,8 @@ public class Roozh {
      *
      * @return Day as <code>int</code>
      */
-    public int getDay() {
-        return day;
+    public int getDayOfMonth() {
+        return iDayOfMonth;
     }
 
     /**
@@ -44,7 +61,7 @@ public class Roozh {
      * @return Month as <code>int</code>
      */
     public int getMonth() {
-        return month;
+        return iMonth + 1;
     }
 
     /**
@@ -53,7 +70,14 @@ public class Roozh {
      * @return Year as <code>int</code>
      */
     public int getYear() {
-        return year;
+        return iYear;
+    }
+
+    public Roozh gregorianToPersian(long time) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        gregorianToPersian(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        return this;
     }
 
     /**
@@ -63,12 +87,12 @@ public class Roozh {
      * @param month <code>int</code>
      * @param day   <code>int</code>
      */
-    public Roozh GregorianToPersian(int year, int month, int day) {
+    public Roozh gregorianToPersian(int year, int month, int day) {
         int jd = JG2JD(year, month, day, 0);
         JD2Jal(jd);
-        this.year = jY;
-        this.month = jM;
-        this.day = jD;
+        this.iYear = iJY;
+        this.iMonth = iJM;
+        this.iDayOfMonth = iJD;
 
         return this;
     }
@@ -108,28 +132,28 @@ public class Roozh {
     private void JD2Jal(int JDN) {
         JD2JG(JDN, 0);
 
-        jY = gY - 621;
-        JalCal(jY);
+        iJY = iGY - 621;
+        JalCal(iJY);
 
-        int JDN1F = JG2JD(gY, 3, march, 0);
+        int JDN1F = JG2JD(iGY, 3, iMarch, 0);
         int k = JDN - JDN1F;
         if (k >= 0) {
             if (k <= 185) {
-                jM = 1 + k / 31;
-                jD = (k % 31) + 1;
+                iJM = 1 + k / 31;
+                iJD = (k % 31) + 1;
                 return;
             } else {
                 k = k - 186;
             }
         } else {
-            jY = jY - 1;
+            iJY = iJY - 1;
             k = k + 179;
-            if (leap == 1)
+            if (iLeap == 1)
                 k = k + 1;
         }
 
-        jM = 7 + k / 30;
-        jD = (k % 30) + 1;
+        iJM = 7 + k / 30;
+        iJD = (k % 30) + 1;
     }
 
     /**
@@ -152,9 +176,9 @@ public class Roozh {
         }
 
         i = (j % 1461) / 4 * 5 + 308;
-        gD = (i % 153) / 5 + 1;
-        gM = ((i / 153) % 12) + 1;
-        gY = j / 1461 - 100100 + (8 - gM) / 6;
+        iGD = (i % 153) / 5 + 1;
+        iGM = ((i / 153) % 12) + 1;
+        iGY = j / 1461 - 100100 + (8 - iGM) / 6;
     }
 
     /**
@@ -165,13 +189,13 @@ public class Roozh {
      * @param jY Jalali calendar year (-61 to 3177)
      */
     private void JalCal(int jY) {
-        march = 0;
-        leap = 0;
+        iMarch = 0;
+        iLeap = 0;
 
         int[] breaks = {-61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210,
                 1635, 2060, 2097, 2192, 2262, 2324, 2394, 2456, 3178};
 
-        gY = jY + 621;
+        iGY = jY + 621;
         int leapJ = -14;
         int jp = breaks[0];
 
@@ -186,23 +210,28 @@ public class Roozh {
                 if ((jump % 33) == 4 && (jump - N) == 4)
                     leapJ = leapJ + 1;
 
-                int leapG = (gY / 4) - (gY / 100 + 1) * 3 / 4 - 150;
+                int leapG = (iGY / 4) - (iGY / 100 + 1) * 3 / 4 - 150;
 
-                march = 20 + leapJ - leapG;
+                iMarch = 20 + leapJ - leapG;
 
                 if ((jump - N) < 6)
                     N = N - jump + (jump + 4) / 33 * 33;
 
-                leap = ((((N + 1) % 33) - 1) % 4);
+                iLeap = ((((N + 1) % 33) - 1) % 4);
 
-                if (leap == -1)
-                    leap = 4;
+                if (iLeap == -1)
+                    iLeap = 4;
                 break;
             }
 
             leapJ = leapJ + jump / 33 * 8 + (jump % 33) / 4;
             jp = jm;
         }
+    }
+
+    public Roozh gregorianToPersian(Calendar calendar) {
+        gregorianToPersian(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        return this;
     }
 
     /**
@@ -215,9 +244,9 @@ public class Roozh {
     public void PersianToGregorian(int year, int month, int day) {
         int jd = Jal2JD(year, month, day);
         JD2JG(jd, 0);
-        this.year = gY;
-        this.month = gM;
-        this.day = gD;
+        this.iYear = iGY;
+        this.iMonth = iGM;
+        this.iDayOfMonth = iGD;
     }
 
     /**
@@ -230,12 +259,12 @@ public class Roozh {
      */
     private int Jal2JD(int jY, int jM, int jD) {
         JalCal(jY);
-        return JG2JD(gY, 3, march, 1) + (jM - 1) * 31 - jM / 7 * (jM - 7)
+        return JG2JD(iGY, 3, iMarch, 1) + (jM - 1) * 31 - jM / 7 * (jM - 7)
                 + jD - 1;
     }
 
     public enum Months {
-        FARVARDIN("فروردین"), ORDIBEHESHT("اردیبهشت"), KHORDAD("خرداد"), TIR("تیر"), MORDAD("مرداد"), SHAHRIVAR("شهریور"), MEHR("مهر"), ABAN("آبان"), AZAR(""), DEY("آذر"), BAHMAN("دی"), ESFAND("بهمن");
+        FARVARDIN("\u0641\u0631\u0648\u0631\u062f\u06cc\u0646"), ORDIBEHESHT("\u0627\u0631\u062f\u06cc\u0628\u0647\u0634\u062a"), KHORDAD("\u062e\u0631\u062f\u0627\u062f"), TIR("\u062a\u06cc\u0631"), MORDAD("\u0645\u0631\u062f\u0627\u062f"), SHAHRIVAR("\u0634\u0647\u0631\u06cc\u0648\u0631"), MEHR("\u0645\u0647\u0631"), ABAN("\u0622\u0628\u0627\u0646"), AZAR("\u0622\u0630\u0631"), DEY("\u062f\u06cc"), BAHMAN("\u0628\u0647\u0645\u0646"), ESFAND("\u0627\u0633\u0641\u0646\u062f");
         private final String persianName;
 
         Months(String persianName) {
