@@ -30,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         AppCompatTextView textView = (AppCompatTextView) findViewById(R.id.output);
-        // Roozh with current time
         RoozhFormatter formatter = new RoozhFormatter()
                 .appendDayOfMonth()
                 .appendSpace()
                 .appendMonth()
                 .appendSpace()
                 .appendYear(4);
+        // Format with current time
         textView.setText(formatter.build());
     }
 }
