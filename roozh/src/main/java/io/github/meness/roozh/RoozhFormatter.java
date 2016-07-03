@@ -34,6 +34,7 @@ public class RoozhFormatter {
      * New string builder will be used
      *
      * @see RoozhFormatter#RoozhFormatter(StringBuilder) for providing already defined string builder
+     * @see RoozhFormatter#RoozhFormatter(RoozhFormatter) for usind old formatter fields
      */
     public RoozhFormatter() {
         stringBuilder = new StringBuilder();
@@ -43,6 +44,8 @@ public class RoozhFormatter {
      * Fields of fresh instance of formatter will be replaced with the old one provided.
      *
      * @param formatter Old formatter
+     * @see RoozhFormatter#RoozhFormatter(StringBuilder) for providing already defined string builder
+     * @see RoozhFormatter#RoozhFormatter()
      */
     public RoozhFormatter(RoozhFormatter formatter) {
         elements = formatter.elements;
@@ -54,6 +57,7 @@ public class RoozhFormatter {
      *
      * @param stringBuilder already defined StringBuilder
      * @see RoozhFormatter#RoozhFormatter()
+     * @see RoozhFormatter#RoozhFormatter(RoozhFormatter) for usind old formatter fields
      */
     public RoozhFormatter(StringBuilder stringBuilder) {
         this.stringBuilder = stringBuilder;
