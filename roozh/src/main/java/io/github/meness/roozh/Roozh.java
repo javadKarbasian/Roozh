@@ -62,9 +62,7 @@ public class Roozh {
         return iYear;
     }
 
-    public Roozh gregorianToPersian(long time) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(time);
+    public Roozh gregorianToPersian(Calendar calendar) {
         gregorianToPersian(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         return this;
     }
@@ -218,7 +216,25 @@ public class Roozh {
         }
     }
 
-    public Roozh gregorianToPersian(Calendar calendar) {
+    /**
+     * Convert current Gregorian to Persian
+     *
+     * @return this
+     */
+    public Roozh gregorianToPersian() {
+        gregorianToPersian(System.currentTimeMillis());
+        return this;
+    }
+
+    /**
+     * Convert Gregorian time to Persian
+     *
+     * @param time Time
+     * @return this
+     */
+    public Roozh gregorianToPersian(long time) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
         gregorianToPersian(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         return this;
     }
@@ -230,7 +246,7 @@ public class Roozh {
      * @param month <code>int</code>
      * @param day   <code>int</code>
      */
-    public void PersianToGregorian(int year, int month, int day) {
+    public void persianToGregorian(int year, int month, int day) {
         int jd = Jal2JD(year, month, day);
         JD2JG(jd, 0);
         this.iYear = iGY;
