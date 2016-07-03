@@ -44,11 +44,13 @@ public class RoozhFormatter {
     }
 
     /**
-     * Append space
+     * Append space character
      *
      * @return this
      * @see RoozhFormatter#appendCharacter(char)
      * @see RoozhFormatter#appendText(String)
+     * @see RoozhFormatter#appendSlash()
+     * @see RoozhFormatter#appendHyphen()
      */
     public RoozhFormatter appendSpace() {
         return appendCharacter(' ');
@@ -61,10 +63,38 @@ public class RoozhFormatter {
      * @return this
      * @see RoozhFormatter#appendText(String)
      * @see RoozhFormatter#appendSpace()
+     * @see RoozhFormatter#appendSlash()
+     * @see RoozhFormatter#appendHyphen()
      */
     public RoozhFormatter appendCharacter(char c) {
         elements.add(c);
         return this;
+    }
+
+    /**
+     * Append slash character
+     *
+     * @return this
+     * @see RoozhFormatter#appendText(String)
+     * @see RoozhFormatter#appendSpace()
+     * @see RoozhFormatter#appendCharacter(char)
+     * @see RoozhFormatter#appendHyphen()
+     */
+    public RoozhFormatter appendSlash() {
+        return appendCharacter('/');
+    }
+
+    /**
+     * Append hyphen character
+     *
+     * @return this
+     * @see RoozhFormatter#appendText(String)
+     * @see RoozhFormatter#appendSpace()
+     * @see RoozhFormatter#appendCharacter(char)
+     * @see RoozhFormatter#appendSlash()
+     */
+    public RoozhFormatter appendHyphen() {
+        return appendCharacter('-');
     }
 
     /**
