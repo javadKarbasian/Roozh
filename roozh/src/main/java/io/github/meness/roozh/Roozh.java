@@ -33,9 +33,7 @@ import java.util.TimeZone;
 public class Roozh {
     public static final String AM = "\u0642\u002e\u0638";
     public static final String PM = "\u0628\u002e\u0638";
-    private int iDayOfMonth, iMonth, iYear;
-    // used only for time
-    private Calendar timeCalendar;
+    private Calendar calendar;
     private int iJY, iJM, iJD;
     private int iGY, iGM, iGD;
     private int iLeap, iMarch;
@@ -46,7 +44,7 @@ public class Roozh {
      * @return Day as <code>int</code>
      */
     public int getDayOfMonth() {
-        return iDayOfMonth;
+        return calendar.get(Calendar.DAY_OF_MONTH);
     }
 
     /**
@@ -55,31 +53,31 @@ public class Roozh {
      * @return Month as <code>int</code>
      */
     public int getMonth() {
-        return iMonth;
+        return calendar.get(Calendar.MONTH);
     }
 
     public int getMillisecond() {
-        return timeCalendar.get(Calendar.MILLISECOND);
+        return calendar.get(Calendar.MILLISECOND);
     }
 
     public int getSecond() {
-        return timeCalendar.get(Calendar.SECOND);
+        return calendar.get(Calendar.SECOND);
     }
 
     public int getMinute() {
-        return timeCalendar.get(Calendar.MINUTE);
+        return calendar.get(Calendar.MINUTE);
     }
 
     public int getHour() {
-        return timeCalendar.get(Calendar.HOUR);
+        return calendar.get(Calendar.HOUR);
     }
 
     public int getHourOfDay() {
-        return timeCalendar.get(Calendar.HOUR_OF_DAY);
+        return calendar.get(Calendar.HOUR_OF_DAY);
     }
 
     public int getAmPm() {
-        return timeCalendar.get(Calendar.AM_PM);
+        return calendar.get(Calendar.AM_PM);
     }
 
     /**
@@ -88,7 +86,7 @@ public class Roozh {
      * @return Year as <code>int</code>
      */
     public int getYear() {
-        return iYear;
+        return calendar.get(Calendar.YEAR);
     }
 
     /**
@@ -116,25 +114,13 @@ public class Roozh {
     public Roozh gregorianToPersian(Calendar calendar) {
         // time zone set for time calendar field
         calendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
-        timeCalendar = calendar;
         // months start from 0
-        gregorianToPersian(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
-        return this;
-    }
-
-    /**
-     * Converts Gregorian date to Persian(Jalali) date
-     *
-     * @param year  <code>int</code>
-     * @param month <code>int</code>
-     * @param day   <code>int</code>
-     */
-    public Roozh gregorianToPersian(int year, int month, int day) {
-        int jd = JG2JD(year, month, day, 0);
+        int jd = JG2JD(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH), 0);
         JD2Jal(jd);
-        this.iYear = iJY;
-        this.iMonth = iJM;
-        this.iDayOfMonth = iJD;
+        this.calendar = calendar;
+        this.calendar.set(Calendar.YEAR, iJY);
+        this.calendar.set(Calendar.MONTH, iJM);
+        this.calendar.set(Calendar.DAY_OF_MONTH, iJD);
 
         return this;
     }
@@ -273,17 +259,16 @@ public class Roozh {
 
     /**
      * Converts Persian(Jalali) date to Gregorian date
-     *
-     * @param year  <code>int</code>
-     * @param month <code>int</code>
-     * @param day   <code>int</code>
      */
-    public void persianToGregorian(int year, int month, int day) {
-        int jd = Jal2JD(year, month, day);
+    public void persianToGregorian(Calendar calendar) {
+        // time zone set for time calendar field
+        calendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
+        int jd = Jal2JD(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
         JD2JG(jd, 0);
-        this.iYear = iGY;
-        this.iMonth = iGM;
-        this.iDayOfMonth = iGD;
+        this.calendar = calendar;
+        this.calendar.set(Calendar.YEAR, iGY);
+        this.calendar.set(Calendar.MONTH, iGM);
+        this.calendar.set(Calendar.DAY_OF_MONTH, iGD);
     }
 
     /**
