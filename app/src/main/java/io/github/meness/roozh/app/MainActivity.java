@@ -41,13 +41,15 @@ public class MainActivity extends AppCompatActivity {
                 .appendSpace()
                 .appendYear(false)
                 .appendSpace().appendSlash().appendSpace()
-                .appendHourOfDay(false)
+                .appendHour(true)
                 .appendColon()
                 .appendMinute(true)
                 .appendColon()
                 .appendSecond(true)
                 .appendColon()
-                .appendMillisecond();
+                .appendMillisecond()
+                .appendSpace()
+                .appendAmPm();
         // build formatter with current time
         textView.setText(formatter.build());
 
