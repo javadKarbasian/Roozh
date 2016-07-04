@@ -17,6 +17,7 @@
 package io.github.meness.roozh;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * This class contains methods for converting Jalali (Solar) and Gregorian dates
@@ -31,6 +32,8 @@ import java.util.Calendar;
 
 public class Roozh {
     private int iDayOfMonth, iMonth, iYear;
+    // used only for time
+    private Calendar timeCalendar;
     private int iJY, iJM, iJD;
     private int iGY, iGM, iGD;
     private int iLeap, iMarch;
@@ -53,6 +56,26 @@ public class Roozh {
         return iMonth;
     }
 
+    public int getMillisecond() {
+        return timeCalendar.get(Calendar.MILLISECOND);
+    }
+
+    public int getSecond() {
+        return timeCalendar.get(Calendar.SECOND);
+    }
+
+    public int getMinute() {
+        return timeCalendar.get(Calendar.MINUTE);
+    }
+
+    public int getHour() {
+        return timeCalendar.get(Calendar.HOUR);
+    }
+
+    public int getHourOfDay() {
+        return timeCalendar.get(Calendar.HOUR_OF_DAY);
+    }
+
     /**
      * Get manipulated year
      *
@@ -62,7 +85,32 @@ public class Roozh {
         return iYear;
     }
 
+    /**
+     * Convert current Gregorian to Persian
+     *
+     * @return this
+     */
+    public Roozh gregorianToPersian() {
+        gregorianToPersian(System.currentTimeMillis());
+        return this;
+    }
+
+    /**
+     * Convert Gregorian time to Persian
+     *
+     * @param time Time
+     * @return this
+     */
+    public Roozh gregorianToPersian(long time) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        return gregorianToPersian(calendar);
+    }
+
     public Roozh gregorianToPersian(Calendar calendar) {
+        // time zone set for time calendar field
+        calendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
+        timeCalendar = calendar;
         // months start from 0
         gregorianToPersian(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
         return this;
@@ -215,30 +263,6 @@ public class Roozh {
             leapJ = leapJ + jump / 33 * 8 + (jump % 33) / 4;
             jp = jm;
         }
-    }
-
-    /**
-     * Convert current Gregorian to Persian
-     *
-     * @return this
-     */
-    public Roozh gregorianToPersian() {
-        gregorianToPersian(System.currentTimeMillis());
-        return this;
-    }
-
-    /**
-     * Convert Gregorian time to Persian
-     *
-     * @param time Time
-     * @return this
-     */
-    public Roozh gregorianToPersian(long time) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(time);
-        // months start from 0
-        gregorianToPersian(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
-        return this;
     }
 
     /**
