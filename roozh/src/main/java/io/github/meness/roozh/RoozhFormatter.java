@@ -20,7 +20,11 @@ import java.util.ArrayList;
 
 import io.github.meness.roozh.components.AbstractComponent;
 import io.github.meness.roozh.components.DayOfMonth;
+import io.github.meness.roozh.components.Hour;
+import io.github.meness.roozh.components.Millisecond;
+import io.github.meness.roozh.components.Minute;
 import io.github.meness.roozh.components.Month;
+import io.github.meness.roozh.components.Second;
 import io.github.meness.roozh.components.Year;
 
 /**
@@ -74,13 +78,24 @@ public class RoozhFormatter {
     }
 
     /**
+     * Clean string builder
+     *
+     * @return this
+     */
+    public RoozhFormatter clean() {
+        stringBuilder = new StringBuilder();
+        return this;
+    }
+
+    /**
      * Append space character
      *
      * @return this
      * @see RoozhFormatter#appendCharacter(char)
-     * @see RoozhFormatter#appendText(String)
+     * @see RoozhFormatter#appendCharacter(char)
      * @see RoozhFormatter#appendSlash()
      * @see RoozhFormatter#appendHyphen()
+     * @see RoozhFormatter#appendColon()
      */
     public RoozhFormatter appendSpace() {
         return appendCharacter(' ');
@@ -95,6 +110,7 @@ public class RoozhFormatter {
      * @see RoozhFormatter#appendSpace()
      * @see RoozhFormatter#appendSlash()
      * @see RoozhFormatter#appendHyphen()
+     * @see RoozhFormatter#appendColon()
      */
     public RoozhFormatter appendCharacter(char c) {
         elements.add(c);
@@ -109,6 +125,7 @@ public class RoozhFormatter {
      * @see RoozhFormatter#appendSpace()
      * @see RoozhFormatter#appendCharacter(char)
      * @see RoozhFormatter#appendHyphen()
+     * @see RoozhFormatter#appendColon()
      */
     public RoozhFormatter appendSlash() {
         return appendCharacter('/');
@@ -122,6 +139,7 @@ public class RoozhFormatter {
      * @see RoozhFormatter#appendSpace()
      * @see RoozhFormatter#appendCharacter(char)
      * @see RoozhFormatter#appendSlash()
+     * @see RoozhFormatter#appendColon()
      */
     public RoozhFormatter appendHyphen() {
         return appendCharacter('-');
@@ -132,8 +150,11 @@ public class RoozhFormatter {
      *
      * @param t text
      * @return this
-     * @see RoozhFormatter#appendText(String)
      * @see RoozhFormatter#appendSpace()
+     * @see RoozhFormatter#appendCharacter(char)
+     * @see RoozhFormatter#appendSlash()
+     * @see RoozhFormatter#appendHyphen()
+     * @see RoozhFormatter#appendColon()
      */
     public RoozhFormatter appendText(String t) {
         if (t == null) {
@@ -144,12 +165,80 @@ public class RoozhFormatter {
     }
 
     /**
-     * Append day of month with leading zero or not
+     * Append color character
+     *
+     * @return this
+     * @see RoozhFormatter#appendText(String)
+     * @see RoozhFormatter#appendSpace()
+     * @see RoozhFormatter#appendCharacter(char)
+     * @see RoozhFormatter#appendSlash()
+     * @see RoozhFormatter#appendHyphen()
+     */
+    public RoozhFormatter appendColon() {
+        return appendCharacter(':');
+    }
+
+    /**
+     * Append day of month with/without leading zero
      *
      * @return this
      */
     public RoozhFormatter appendDayOfMonth(boolean leadingZero) {
         elements.add(new DayOfMonth().setMinimumLength(leadingZero ? 2 : 1));
+        return this;
+    }
+
+    /**
+     * Append 12-clock hour with/without leading zero
+     *
+     * @return this
+     * @see RoozhFormatter#appendHourOfDay(boolean) for 24-clock
+     */
+    public RoozhFormatter appendHour(boolean leadingZero) {
+        elements.add(new Hour().setMinimumLength(leadingZero ? 2 : 1));
+        return this;
+    }
+
+    /**
+     * Append minute with/without leading zero
+     *
+     * @param leadingZero With leading zero
+     * @return this
+     */
+    public RoozhFormatter appendMinute(boolean leadingZero) {
+        elements.add(new Minute().setMinimumLength(leadingZero ? 2 : 1));
+        return this;
+    }
+
+    /**
+     * Append second with/without leading zero
+     *
+     * @param leadingZero With leading zero
+     * @return this
+     */
+    public RoozhFormatter appendSecond(boolean leadingZero) {
+        elements.add(new Second().setMinimumLength(leadingZero ? 2 : 1));
+        return this;
+    }
+
+    /**
+     * Append millisecond
+     *
+     * @return this
+     */
+    public RoozhFormatter appendMillisecond() {
+        elements.add(new Millisecond());
+        return this;
+    }
+
+    /**
+     * Append 24-clock hour with/without leading zero
+     *
+     * @return this
+     * @see RoozhFormatter#appendHour(boolean) for 12-clock
+     */
+    public RoozhFormatter appendHourOfDay(boolean leadingZero) {
+        elements.add(new Hour().setMinimumLength(leadingZero ? 4 : 3));
         return this;
     }
 
@@ -259,7 +348,7 @@ public class RoozhFormatter {
     private String formatByPresentation(AbstractComponent component, Roozh roozh) {
         switch (component.getPresentation()) {
             case MONTH:
-                if (component.getMinimumLength() <= 1) {
+                if (component.getMinimumLength() == 1) {
                     return Integer.toString(roozh.getMonth());
                 } else if (component.getMinimumLength() == 2) {
                     return formatByLeadingZero(roozh.getMonth());
@@ -268,15 +357,42 @@ public class RoozhFormatter {
                 }
                 return Roozh.Months.getName(roozh.getMonth());
             case NUMBER:
-                if (component.getMinimumLength() <= 1) {
-                    return Integer.toString(roozh.getDayOfMonth());
+                if (component instanceof Hour) {
+                    if (component.getMinimumLength() == 1) {
+                        return Integer.toString(roozh.getHour());
+                    } else if (component.getMinimumLength() == 2) {
+                        return formatByLeadingZero(roozh.getHour());
+                    } else if (component.getMinimumLength() == 3) {
+                        return Integer.toString(roozh.getHourOfDay());
+                    } else if (component.getMinimumLength() == 4) {
+                        return formatByLeadingZero(roozh.getHourOfDay());
+                    }
+                } else if (component instanceof Minute) {
+                    if (component.getMinimumLength() == 1) {
+                        return Integer.toString(roozh.getMinute());
+                    }
+                    return formatByLeadingZero(roozh.getMinute());
+                } else if (component instanceof Second) {
+                    if (component.getMinimumLength() == 1) {
+                        return Integer.toString(roozh.getSecond());
+                    }
+                    return formatByLeadingZero(roozh.getSecond());
+                } else if (component instanceof Millisecond) {
+                    if (component.getMinimumLength() == 1) {
+                        return Integer.toString(roozh.getMillisecond());
+                    }
+                    return formatByLeadingZero(roozh.getMillisecond());
+                } else if (component instanceof DayOfMonth) {
+                    if (component.getMinimumLength() == 1) {
+                        return Integer.toString(roozh.getDayOfMonth());
+                    }
+                    return formatByLeadingZero(roozh.getDayOfMonth());
                 }
-                return formatByLeadingZero(roozh.getDayOfMonth());
             case TEXT:
                 // IMPLEMENT
                 break;
             case YEAR:
-                if (component.getMinimumLength() <= 2) {
+                if (component.getMinimumLength() == 2) {
                     return Integer.toString(roozh.getYear()).replaceAll("^[0-9]{2}", "");
                 }
                 return Integer.toString(roozh.getYear());
