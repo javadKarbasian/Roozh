@@ -31,14 +31,14 @@ import java.util.TimeZone;
  */
 
 public class Roozh {
+    public static final String AM = "\u0642\u002e\u0638";
+    public static final String PM = "\u0628\u002e\u0638";
     private int iDayOfMonth, iMonth, iYear;
     // used only for time
     private Calendar timeCalendar;
     private int iJY, iJM, iJD;
     private int iGY, iGM, iGD;
     private int iLeap, iMarch;
-    public static final String AM = "\u0642\u002e\u0638";
-    public static final String PM = "\u0628\u002e\u0638";
 
     /**
      * Get manipulated day
