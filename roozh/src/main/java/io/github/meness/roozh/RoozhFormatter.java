@@ -195,7 +195,7 @@ public class RoozhFormatter {
      * @see RoozhFormatter#appendHourOfDay(boolean) for 24-clock
      */
     public RoozhFormatter appendHour(boolean leadingZero) {
-        elements.add(new Hour().setMinimumLength(leadingZero ? 2 : 1));
+        elements.add(new Hour(Hour.Clock.CLOCK_12).setMinimumLength(leadingZero ? 2 : 1));
         return this;
     }
 
@@ -238,7 +238,7 @@ public class RoozhFormatter {
      * @see RoozhFormatter#appendHour(boolean) for 12-clock
      */
     public RoozhFormatter appendHourOfDay(boolean leadingZero) {
-        elements.add(new Hour().setMinimumLength(leadingZero ? 4 : 3));
+        elements.add(new Hour(Hour.Clock.CLOCK_24).setMinimumLength(leadingZero ? 2 : 1));
         return this;
     }
 
@@ -358,14 +358,18 @@ public class RoozhFormatter {
                 return Roozh.Months.getName(roozh.getMonth());
             case NUMBER:
                 if (component instanceof Hour) {
-                    if (component.getMinimumLength() == 1) {
-                        return Integer.toString(roozh.getHour());
-                    } else if (component.getMinimumLength() == 2) {
-                        return formatByLeadingZero(roozh.getHour());
-                    } else if (component.getMinimumLength() == 3) {
-                        return Integer.toString(roozh.getHourOfDay());
-                    } else if (component.getMinimumLength() == 4) {
-                        return formatByLeadingZero(roozh.getHourOfDay());
+                    if (((Hour) component).getClock() == Hour.Clock.CLOCK_12) {
+                        if (component.getMinimumLength() == 1) {
+                            return Integer.toString(roozh.getHour());
+                        } else if (component.getMinimumLength() == 2) {
+                            return formatByLeadingZero(roozh.getHour());
+                        }
+                    } else {
+                        if (component.getMinimumLength() == 1) {
+                            return Integer.toString(roozh.getHourOfDay());
+                        } else if (component.getMinimumLength() == 2) {
+                            return formatByLeadingZero(roozh.getHourOfDay());
+                        }
                     }
                 } else if (component instanceof Minute) {
                     if (component.getMinimumLength() == 1) {

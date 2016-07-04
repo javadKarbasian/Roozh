@@ -22,7 +22,18 @@ import io.github.meness.roozh.Presentation;
  * @since 2.6.1
  */
 public class Hour extends AbstractComponent {
-    public Hour() {
+    private Clock clock;
+
+    public Hour(Clock clock) {
         super(Presentation.NUMBER);
+        this.clock = clock;
+    }
+
+    public Clock getClock() {
+        return clock;
+    }
+
+    public enum Clock {
+        CLOCK_12, CLOCK_24
     }
 }
