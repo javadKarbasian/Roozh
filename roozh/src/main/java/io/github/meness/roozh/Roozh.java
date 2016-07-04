@@ -37,6 +37,8 @@ public class Roozh {
     private int iJY, iJM, iJD;
     private int iGY, iGM, iGD;
     private int iLeap, iMarch;
+    public static final String AM = "\u0642\u002e\u0638";
+    public static final String PM = "\u0628\u002e\u0638";
 
     /**
      * Get manipulated day
@@ -74,6 +76,10 @@ public class Roozh {
 
     public int getHourOfDay() {
         return timeCalendar.get(Calendar.HOUR_OF_DAY);
+    }
+
+    public int getAmPm() {
+        return timeCalendar.get(Calendar.AM_PM);
     }
 
     /**

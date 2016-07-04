@@ -17,8 +17,10 @@
 package io.github.meness.roozh;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import io.github.meness.roozh.components.AbstractComponent;
+import io.github.meness.roozh.components.AmPm;
 import io.github.meness.roozh.components.DayOfMonth;
 import io.github.meness.roozh.components.Hour;
 import io.github.meness.roozh.components.Millisecond;
@@ -232,6 +234,30 @@ public class RoozhFormatter {
     }
 
     /**
+     * Append AM/PM
+     * Note: It's useful for using with {@link #appendHour(boolean)}
+     *
+     * @return this
+     * @see #appendAmPm(String, String)
+     */
+    public RoozhFormatter appendAmPm() {
+        elements.add(new AmPm());
+        return this;
+    }
+
+    /**
+     * Append AM/PM with custom strings
+     * Note: It's useful for using with {@link #appendHour(boolean)}
+     *
+     * @return this
+     * @see #appendAmPm()
+     */
+    public RoozhFormatter appendAmPm(String am, String pm) {
+        elements.add(new AmPm(am, pm));
+        return this;
+    }
+
+    /**
      * Append 24-clock hour with/without leading zero
      *
      * @return this
@@ -393,7 +419,9 @@ public class RoozhFormatter {
                     return formatByLeadingZero(roozh.getDayOfMonth());
                 }
             case TEXT:
-                // IMPLEMENT
+                if (component instanceof AmPm) {
+                    return roozh.getAmPm() == Calendar.AM ? ((AmPm) component).getAm() : ((AmPm) component).getPm();
+                }
                 break;
             case YEAR:
                 if (component.getMinimumLength() == 2) {
