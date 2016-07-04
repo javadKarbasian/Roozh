@@ -1,5 +1,5 @@
 # Roozh for Java
-Roozh (means *day* in Kurdish) is a Java library for converting Persian dates to Gregorian dates and vice versa.
+Roozh (means *day* in Kurdish) is a Java library for converting Gregorian date time to Persian date time and vice versa.
 
 > Tired of struggling with Persian dates in Java? Does your next project needs Persian dates instead of Gregorian ones? Are you an Iranian? You know that Java doesn't support Persian dates natively.
 
@@ -38,7 +38,17 @@ RoozhFormatter formatter = new RoozhFormatter()
 	.appendSpace()
 	.appendMonthFullName()
 	.appendSpace()
-	.appendYear(false);
+	.appendYear(false)
+	.appendSpace().appendSlash().appendSpace()
+	.appendHour(true)
+	.appendColon()
+	.appendMinute(true)
+	.appendColon()
+	.appendSecond(true)
+	.appendColon()
+	.appendMillisecond()
+	.appendSpace()
+	.appendAmPm();
 // Format with current time
 String formatted = formatter.build();
 ```
