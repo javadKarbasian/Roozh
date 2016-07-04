@@ -14,6 +14,7 @@ If these questions seem familiar, the Roozh is the one here can help you achieve
 * Quick and simple API
 * **Formatter**
 * Tested and stable
+* **~16KB**
 
 ## The Algorithm
 This algorithm is presented by [Kazimierz Borkowski](http://www.astro.uni.torun.pl/~kb/personal.html) and can be found [here](http://www.astro.uni.torun.pl/~kb/Papers/EMP/PersianC-EMP.htm) and it's publishing is authorized by it's author.
