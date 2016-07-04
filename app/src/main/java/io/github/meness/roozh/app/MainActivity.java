@@ -18,7 +18,9 @@ package io.github.meness.roozh.app;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.view.View;
 
 import io.github.meness.roozh.RoozhFormatter;
 
@@ -29,14 +31,32 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AppCompatTextView textView = (AppCompatTextView) findViewById(R.id.output);
-        RoozhFormatter formatter = new RoozhFormatter()
+        final AppCompatTextView textView = (AppCompatTextView) findViewById(R.id.outputTxt);
+        AppCompatButton updateBtn = (AppCompatButton) findViewById(R.id.updateBtn);
+
+        final RoozhFormatter formatter = new RoozhFormatter()
                 .appendDayOfMonth(false)
                 .appendSpace()
                 .appendMonthFullName()
                 .appendSpace()
-                .appendYear(false);
-        // Format with current time
+                .appendYear(false)
+                .appendSpace().appendSlash().appendSpace()
+                .appendHourOfDay(false)
+                .appendColon()
+                .appendMinute(true)
+                .appendColon()
+                .appendSecond(true)
+                .appendColon()
+                .appendMillisecond();
+        // build formatter with current time
         textView.setText(formatter.build());
+
+        updateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // rebuild formatter with current time
+                textView.setText(formatter.clean().build());
+            }
+        });
     }
 }
