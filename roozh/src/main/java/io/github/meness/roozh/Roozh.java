@@ -112,12 +112,13 @@ public class Roozh {
     }
 
     public Roozh gregorianToPersian(Calendar calendar) {
-        // time zone set for time calendar field
-        calendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
         // months start from 0
         int jd = JG2JD(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH), 0);
         JD2Jal(jd);
         this.calendar = calendar;
+        // time zone set for time calendar field
+        this.calendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
+        this.calendar.setFirstDayOfWeek(Calendar.SATURDAY);
         this.calendar.set(Calendar.YEAR, iJY);
         this.calendar.set(Calendar.MONTH, iJM);
         this.calendar.set(Calendar.DAY_OF_MONTH, iJD);
@@ -261,11 +262,12 @@ public class Roozh {
      * Converts Persian(Jalali) date to Gregorian date
      */
     public void persianToGregorian(Calendar calendar) {
-        // time zone set for time calendar field
-        calendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
         int jd = Jal2JD(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
         JD2JG(jd, 0);
         this.calendar = calendar;
+        // time zone set for time calendar field
+        this.calendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
+        this.calendar.setFirstDayOfWeek(Calendar.SATURDAY);
         this.calendar.set(Calendar.YEAR, iGY);
         this.calendar.set(Calendar.MONTH, iGM);
         this.calendar.set(Calendar.DAY_OF_MONTH, iGD);
