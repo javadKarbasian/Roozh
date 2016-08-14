@@ -41,8 +41,8 @@ public class Roozh {
     /**
      * Get manipulated day
      *
-     * @see Calendar#DAY_OF_MONTH
      * @return Day as <code>int</code>
+     * @see Calendar#DAY_OF_MONTH
      */
     public int getDayOfMonth() {
         return calendar.get(Calendar.DAY_OF_MONTH);
@@ -51,8 +51,8 @@ public class Roozh {
     /**
      * Get manipulated month
      *
-     * @see Calendar#MONTH
      * @return Month as <code>int</code>
+     * @see Calendar#MONTH
      */
     public int getMonth() {
         return calendar.get(Calendar.MONTH);
@@ -61,8 +61,8 @@ public class Roozh {
     /**
      * Get manipulated millisecond
      *
-     * @see Calendar#MILLISECOND
      * @return Millisecond as <code>int</code>
+     * @see Calendar#MILLISECOND
      */
     public int getMillisecond() {
         return calendar.get(Calendar.MILLISECOND);
@@ -71,8 +71,8 @@ public class Roozh {
     /**
      * Get manipulated second
      *
-     * @see Calendar#SECOND
      * @return Second as <code>int</code>
+     * @see Calendar#SECOND
      */
     public int getSecond() {
         return calendar.get(Calendar.SECOND);
@@ -81,8 +81,8 @@ public class Roozh {
     /**
      * Get manipulated minute
      *
-     * @see Calendar#MINUTE
      * @return Minute as <code>int</code>
+     * @see Calendar#MINUTE
      */
     public int getMinute() {
         return calendar.get(Calendar.MINUTE);
@@ -91,8 +91,8 @@ public class Roozh {
     /**
      * Get manipulated hour
      *
-     * @see Calendar#HOUR
      * @return Hour as <code>int</code>
+     * @see Calendar#HOUR
      */
     public int getHour() {
         return calendar.get(Calendar.HOUR);
@@ -101,8 +101,8 @@ public class Roozh {
     /**
      * Get manipulated hour of day
      *
-     * @see Calendar#HOUR_OF_DAY
      * @return Hour of day as <code>int</code>
+     * @see Calendar#HOUR_OF_DAY
      */
     public int getHourOfDay() {
         return calendar.get(Calendar.HOUR_OF_DAY);
@@ -111,8 +111,8 @@ public class Roozh {
     /**
      * Get manipulated AM/PM
      *
-     * @see Calendar#AM_PM
      * @return AM/PM as <code>int</code>
+     * @see Calendar#AM_PM
      */
     public int getAmPm() {
         return calendar.get(Calendar.AM_PM);
@@ -121,8 +121,8 @@ public class Roozh {
     /**
      * Get manipulated year
      *
-     * @see Calendar#YEAR
      * @return Year as <code>int</code>
+     * @see Calendar#YEAR
      */
     public int getYear() {
         return calendar.get(Calendar.YEAR);
@@ -148,20 +148,6 @@ public class Roozh {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(time);
         return gregorianToPersian(calendar);
-    }
-
-    /**
-     * changes to datetime calendar obj for Tehran
-     */
-    private void changesForTehran(){
-        // set first day of week in Iran
-        calendar.setFirstDayOfWeek(Calendar.SATURDAY);
-
-        // set Asia/Tehran as timezone but doesn't work!
-        calendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
-        // issue: Java doesn't apply 'Asia/Tehran' timezone
-        // adding 1 millisecond fixes that issue.
-        calendar.add(Calendar.MILLISECOND,1);
     }
 
     public Roozh gregorianToPersian(Calendar cal) {
@@ -234,6 +220,20 @@ public class Roozh {
 
         iJM = 7 + k / 30;
         iJD = (k % 30) + 1;
+    }
+
+    /**
+     * changes to datetime calendar obj for Tehran
+     */
+    private void changesForTehran() {
+        // set first day of week in Iran
+        calendar.setFirstDayOfWeek(Calendar.SATURDAY);
+
+        // set Asia/Tehran as timezone but doesn't work!
+        calendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
+        // issue: Java doesn't apply 'Asia/Tehran' timezone
+        // adding 1 millisecond fixes that issue.
+        calendar.add(Calendar.MILLISECOND, 1);
     }
 
     /**
