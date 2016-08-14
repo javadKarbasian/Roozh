@@ -41,6 +41,7 @@ public class Roozh {
     /**
      * Get manipulated day
      *
+     * @see Calendar#DAY_OF_MONTH
      * @return Day as <code>int</code>
      */
     public int getDayOfMonth() {
@@ -50,32 +51,69 @@ public class Roozh {
     /**
      * Get manipulated month
      *
+     * @see Calendar#MONTH
      * @return Month as <code>int</code>
      */
     public int getMonth() {
         return calendar.get(Calendar.MONTH);
     }
 
+    /**
+     * Get manipulated millisecond
+     *
+     * @see Calendar#MILLISECOND
+     * @return Millisecond as <code>int</code>
+     */
     public int getMillisecond() {
         return calendar.get(Calendar.MILLISECOND);
     }
 
+    /**
+     * Get manipulated second
+     *
+     * @see Calendar#SECOND
+     * @return Second as <code>int</code>
+     */
     public int getSecond() {
         return calendar.get(Calendar.SECOND);
     }
 
+    /**
+     * Get manipulated minute
+     *
+     * @see Calendar#MINUTE
+     * @return Minute as <code>int</code>
+     */
     public int getMinute() {
         return calendar.get(Calendar.MINUTE);
     }
 
+    /**
+     * Get manipulated hour
+     *
+     * @see Calendar#HOUR
+     * @return Hour as <code>int</code>
+     */
     public int getHour() {
         return calendar.get(Calendar.HOUR);
     }
 
+    /**
+     * Get manipulated hour of day
+     *
+     * @see Calendar#HOUR_OF_DAY
+     * @return Hour of day as <code>int</code>
+     */
     public int getHourOfDay() {
         return calendar.get(Calendar.HOUR_OF_DAY);
     }
 
+    /**
+     * Get manipulated AM/PM
+     *
+     * @see Calendar#AM_PM
+     * @return AM/PM as <code>int</code>
+     */
     public int getAmPm() {
         return calendar.get(Calendar.AM_PM);
     }
@@ -83,6 +121,7 @@ public class Roozh {
     /**
      * Get manipulated year
      *
+     * @see Calendar#YEAR
      * @return Year as <code>int</code>
      */
     public int getYear() {
@@ -111,6 +150,9 @@ public class Roozh {
         return gregorianToPersian(calendar);
     }
 
+    /**
+     * changes to datetime calendar obj for Tehran
+     */
     private void changesForTehran(){
         // set first day of week in Iran
         calendar.setFirstDayOfWeek(Calendar.SATURDAY);
