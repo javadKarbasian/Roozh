@@ -111,17 +111,26 @@ public class Roozh {
         return gregorianToPersian(calendar);
     }
 
-    public Roozh gregorianToPersian(Calendar calendar) {
+    private void changesForTehran(){
+        // set first day of week in Iran
+        calendar.setFirstDayOfWeek(Calendar.SATURDAY);
+
+        // set Asia/Tehran as timezone but doesn't work!
+        calendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
+        // issue: Java doesn't apply 'Asia/Tehran' timezone
+        // adding 1 millisecond fixes that issue.
+        calendar.add(Calendar.MILLISECOND,1);
+    }
+
+    public Roozh gregorianToPersian(Calendar cal) {
         // months start from 0
-        int jd = JG2JD(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH), 0);
+        int jd = JG2JD(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH), 0);
         JD2Jal(jd);
-        this.calendar = calendar;
-        // time zone set for time calendar field
-        this.calendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
-        this.calendar.setFirstDayOfWeek(Calendar.SATURDAY);
-        this.calendar.set(Calendar.YEAR, iJY);
-        this.calendar.set(Calendar.MONTH, iJM);
-        this.calendar.set(Calendar.DAY_OF_MONTH, iJD);
+        calendar = cal;
+        changesForTehran();
+        calendar.set(Calendar.YEAR, iJY);
+        calendar.set(Calendar.MONTH, iJM);
+        calendar.set(Calendar.DAY_OF_MONTH, iJD);
 
         return this;
     }
@@ -261,16 +270,14 @@ public class Roozh {
     /**
      * Converts Persian(Jalali) date to Gregorian date
      */
-    public void persianToGregorian(Calendar calendar) {
-        int jd = Jal2JD(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DAY_OF_MONTH));
+    public void persianToGregorian(Calendar cal) {
+        int jd = Jal2JD(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
         JD2JG(jd, 0);
-        this.calendar = calendar;
-        // time zone set for time calendar field
-        this.calendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
-        this.calendar.setFirstDayOfWeek(Calendar.SATURDAY);
-        this.calendar.set(Calendar.YEAR, iGY);
-        this.calendar.set(Calendar.MONTH, iGM);
-        this.calendar.set(Calendar.DAY_OF_MONTH, iGD);
+        calendar = cal;
+        changesForTehran();
+        calendar.set(Calendar.YEAR, iGY);
+        calendar.set(Calendar.MONTH, iGM);
+        calendar.set(Calendar.DAY_OF_MONTH, iGD);
     }
 
     /**
