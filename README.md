@@ -12,6 +12,7 @@ If these questions seem familiar, the Roozh is the one here can help you achieve
 * Integrate in less than 5 minutes
 * Compatible down to Java 1.7
 * Quick and simple API
+* Persian and Kurdish locales are supported
 * **Formatter**
 * Tested and stable
 * **~16KB**
