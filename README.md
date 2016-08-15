@@ -51,7 +51,8 @@ RoozhFormatter formatter = new RoozhFormatter()
 	.appendMillisecond()
 	.appendSpace()
 	.appendAmPm();
-// Format with current time
+// Format with current time and default Persian locale
+// or use RoozhLocale.KURDISH with build() to have Kurdish locale
 String formatted = formatter.build();
 ```
 
