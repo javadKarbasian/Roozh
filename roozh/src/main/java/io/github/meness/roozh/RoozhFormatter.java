@@ -30,6 +30,8 @@ import io.github.meness.roozh.components.Second;
 import io.github.meness.roozh.components.Year;
 
 /**
+ * format Roozh and make desired output
+ *
  * @since 2.0
  */
 public class RoozhFormatter {
@@ -39,8 +41,8 @@ public class RoozhFormatter {
     /**
      * New string builder will be used
      *
-     * @see RoozhFormatter#RoozhFormatter(StringBuilder) for providing already defined string builder
-     * @see RoozhFormatter#RoozhFormatter(RoozhFormatter) for usind old formatter fields
+     * @see #RoozhFormatter(StringBuilder) for providing already defined string builder
+     * @see #RoozhFormatter(RoozhFormatter) for usind old formatter fields
      */
     public RoozhFormatter() {
         stringBuilder = new StringBuilder();
@@ -50,8 +52,8 @@ public class RoozhFormatter {
      * Fields of fresh instance of formatter will be replaced with the old one provided.
      *
      * @param formatter Old formatter
-     * @see RoozhFormatter#RoozhFormatter(StringBuilder) for providing already defined string builder
-     * @see RoozhFormatter#RoozhFormatter()
+     * @see #RoozhFormatter(StringBuilder) for providing already defined string builder
+     * @see #RoozhFormatter()
      */
     public RoozhFormatter(RoozhFormatter formatter) {
         elements = formatter.elements;
@@ -62,8 +64,8 @@ public class RoozhFormatter {
      * Last result will be appended to provided string builder
      *
      * @param stringBuilder already defined StringBuilder
-     * @see RoozhFormatter#RoozhFormatter()
-     * @see RoozhFormatter#RoozhFormatter(RoozhFormatter) for usind old formatter fields
+     * @see #RoozhFormatter()
+     * @see #RoozhFormatter(RoozhFormatter) for usind old formatter fields
      */
     public RoozhFormatter(StringBuilder stringBuilder) {
         this.stringBuilder = stringBuilder;
@@ -93,11 +95,7 @@ public class RoozhFormatter {
      * Append space character
      *
      * @return this
-     * @see RoozhFormatter#appendCharacter(char)
-     * @see RoozhFormatter#appendCharacter(char)
-     * @see RoozhFormatter#appendSlash()
-     * @see RoozhFormatter#appendHyphen()
-     * @see RoozhFormatter#appendColon()
+     * @see #appendCharacter(char)
      */
     public RoozhFormatter appendSpace() {
         return appendCharacter(' ');
@@ -108,11 +106,7 @@ public class RoozhFormatter {
      *
      * @param c character
      * @return this
-     * @see RoozhFormatter#appendText(String)
-     * @see RoozhFormatter#appendSpace()
-     * @see RoozhFormatter#appendSlash()
-     * @see RoozhFormatter#appendHyphen()
-     * @see RoozhFormatter#appendColon()
+     * @see #appendText(String)
      */
     public RoozhFormatter appendCharacter(char c) {
         elements.add(c);
@@ -120,31 +114,13 @@ public class RoozhFormatter {
     }
 
     /**
-     * Append slash character
+     * Append newline
      *
      * @return this
-     * @see RoozhFormatter#appendText(String)
-     * @see RoozhFormatter#appendSpace()
-     * @see RoozhFormatter#appendCharacter(char)
-     * @see RoozhFormatter#appendHyphen()
-     * @see RoozhFormatter#appendColon()
+     * @see #appendCharacter(char)
      */
-    public RoozhFormatter appendSlash() {
-        return appendCharacter('/');
-    }
-
-    /**
-     * Append hyphen character
-     *
-     * @return this
-     * @see RoozhFormatter#appendText(String)
-     * @see RoozhFormatter#appendSpace()
-     * @see RoozhFormatter#appendCharacter(char)
-     * @see RoozhFormatter#appendSlash()
-     * @see RoozhFormatter#appendColon()
-     */
-    public RoozhFormatter appendHyphen() {
-        return appendCharacter('-');
+    public RoozhFormatter appendNewLine() {
+        return appendText("\r\n");
     }
 
     /**
@@ -152,11 +128,7 @@ public class RoozhFormatter {
      *
      * @param t text
      * @return this
-     * @see RoozhFormatter#appendSpace()
-     * @see RoozhFormatter#appendCharacter(char)
-     * @see RoozhFormatter#appendSlash()
-     * @see RoozhFormatter#appendHyphen()
-     * @see RoozhFormatter#appendColon()
+     * @see #appendCharacter(char)
      */
     public RoozhFormatter appendText(String t) {
         if (t == null) {
@@ -167,14 +139,40 @@ public class RoozhFormatter {
     }
 
     /**
+     * Append slash character
+     *
+     * @return this
+     * @see #appendCharacter(char)
+     */
+    public RoozhFormatter appendSlash() {
+        return appendCharacter('/');
+    }
+
+    /**
+     * Append dot character
+     *
+     * @return this
+     * @see #appendCharacter(char)
+     */
+    public RoozhFormatter appendDot() {
+        return appendCharacter('.');
+    }
+
+    /**
+     * Append hyphen character
+     *
+     * @return this
+     * @see #appendCharacter(char)
+     */
+    public RoozhFormatter appendHyphen() {
+        return appendCharacter('-');
+    }
+
+    /**
      * Append color character
      *
      * @return this
-     * @see RoozhFormatter#appendText(String)
-     * @see RoozhFormatter#appendSpace()
-     * @see RoozhFormatter#appendCharacter(char)
-     * @see RoozhFormatter#appendSlash()
-     * @see RoozhFormatter#appendHyphen()
+     * @see #appendCharacter(char)
      */
     public RoozhFormatter appendColon() {
         return appendCharacter(':');
@@ -194,7 +192,7 @@ public class RoozhFormatter {
      * Append 12-clock hour with/without leading zero
      *
      * @return this
-     * @see RoozhFormatter#appendHourOfDay(boolean) for 24-clock
+     * @see #appendHourOfDay(boolean) for 24-clock
      */
     public RoozhFormatter appendHour(boolean leadingZero) {
         elements.add(new Hour(Hour.Clock.CLOCK_12).setMinimumLength(leadingZero ? 2 : 1));
@@ -261,7 +259,7 @@ public class RoozhFormatter {
      * Append 24-clock hour with/without leading zero
      *
      * @return this
-     * @see RoozhFormatter#appendHour(boolean) for 12-clock
+     * @see #appendHour(boolean) for 12-clock
      */
     public RoozhFormatter appendHourOfDay(boolean leadingZero) {
         elements.add(new Hour(Hour.Clock.CLOCK_24).setMinimumLength(leadingZero ? 2 : 1));
@@ -272,9 +270,9 @@ public class RoozhFormatter {
      * Append month with leading zero
      *
      * @return this
-     * @see RoozhFormatter#appendMonth()
-     * @see RoozhFormatter#appendMonthFullName()
-     * @see RoozhFormatter#appendMonthShortName()
+     * @see #appendMonth()
+     * @see #appendMonthFullName()
+     * @see #appendMonthShortName()
      */
     public RoozhFormatter appendMonthLeadingZero() {
         elements.add(new Month().setMinimumLength(2));
@@ -285,9 +283,9 @@ public class RoozhFormatter {
      * Append month number with no leading zero
      *
      * @return this
-     * @see RoozhFormatter#appendMonthLeadingZero()
-     * @see RoozhFormatter#appendMonthFullName()
-     * @see RoozhFormatter#appendMonthShortName()
+     * @see #appendMonthLeadingZero()
+     * @see #appendMonthFullName()
+     * @see #appendMonthShortName()
      */
     public RoozhFormatter appendMonth() {
         elements.add(new Month().setMinimumLength(1));
@@ -298,9 +296,9 @@ public class RoozhFormatter {
      * Append month with short name
      *
      * @return this
-     * @see RoozhFormatter#appendMonth()
-     * @see RoozhFormatter#appendMonthLeadingZero()
-     * @see RoozhFormatter#appendMonthFullName()
+     * @see #appendMonth()
+     * @see #appendMonthLeadingZero()
+     * @see #appendMonthFullName()
      */
     public RoozhFormatter appendMonthShortName() {
         elements.add(new Month().setMinimumLength(3));
@@ -311,9 +309,9 @@ public class RoozhFormatter {
      * Append month with full name
      *
      * @return this
-     * @see RoozhFormatter#appendMonth()
-     * @see RoozhFormatter#appendMonthLeadingZero()
-     * @see RoozhFormatter#appendMonthShortName()
+     * @see #appendMonth()
+     * @see #appendMonthLeadingZero()
+     * @see #appendMonthShortName()
      */
     public RoozhFormatter appendMonthFullName() {
         elements.add(new Month().setMinimumLength(4));
@@ -331,14 +329,15 @@ public class RoozhFormatter {
     }
 
     /**
-     * Build with current time
+     * Build with current time and default locale
      * Note: Elements order is important.
      *
      * @return Formatted string
-     * @see RoozhFormatter#build(Roozh)
+     * @see #build(Roozh)
+     * @see #build(RoozhLocale)
      */
     public String build() {
-        return build(new Roozh().gregorianToPersian());
+        return build(Roozh.getInstance().gregorianToPersian());
     }
 
     /**
@@ -346,7 +345,7 @@ public class RoozhFormatter {
      *
      * @param roozh Roozh
      * @return Formatted string
-     * @see RoozhFormatter#build()
+     * @see #build()
      */
     public String build(Roozh roozh) {
         if (elements.isEmpty()) {
@@ -379,9 +378,9 @@ public class RoozhFormatter {
                 } else if (component.getMinimumLength() == 2) {
                     return formatByLeadingZero(roozh.getMonth());
                 } else if (component.getMinimumLength() == 3) {
-                    return Roozh.Months.Short.getName(roozh.getMonth());
+                    return roozh.getMonthName(true);
                 }
-                return Roozh.Months.getName(roozh.getMonth());
+                return roozh.getMonthName(false);
             case NUMBER:
                 if (component instanceof Hour) {
                     if (((Hour) component).getClock() == Hour.Clock.CLOCK_12) {
@@ -444,5 +443,17 @@ public class RoozhFormatter {
             return new StringBuilder(sI).insert(0, '0').toString();
         }
         return sI;
+    }
+
+    /**
+     * Build with current time and defined locale
+     * Note: Elements order is important.
+     *
+     * @return Formatted string
+     * @see #build(Roozh)
+     * @see #build()
+     */
+    public String build(RoozhLocale locale) {
+        return build(Roozh.getInstance(locale).gregorianToPersian());
     }
 }

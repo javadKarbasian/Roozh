@@ -19,25 +19,56 @@ package io.github.meness.roozh;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import io.github.meness.roozh.locales.PersianLocale;
+
 /**
  * This class contains methods for converting Jalali (Solar) and Gregorian dates
  * into each other based Kazimierz M. Borkowski paper about Jalali date.
  *
  * @author Kaveh Shahbazian
  * @author Alireza Eskandarpour Shoferi
- * @version 2.8.4
+ * @version 3.0
  * @see <a href="https://github.com/meNESS/Roozh/">Roozh on Github</a>
  * @see <a href="http://www.astro.uni.torun.pl/~kb/Papers/EMP/PersianC-EMP.htm">The Persian calendar for 3000 years</a>
  * @since 0.0.1-alpha
  */
 
-public class Roozh {
+public abstract class Roozh {
     public static final String AM = "\u0642\u002e\u0638";
     public static final String PM = "\u0628\u002e\u0638";
+    protected RoozhLocale locale;
     private Calendar calendar;
     private int iJY, iJM, iJD;
     private int iGY, iGM, iGD;
     private int iLeap, iMarch;
+
+    /**
+     * create Roozh instance with default Persian locale
+     *
+     * @return Roozh instance
+     */
+    public static Roozh getInstance() {
+        return createInstance(RoozhLocale.PERSIAN);
+    }
+
+    /**
+     * return new Roozh instance based on locale
+     *
+     * @param locale locale
+     * @return Roozh instance in defined locale
+     */
+    private static Roozh createInstance(RoozhLocale locale) {
+        switch (locale) {
+            case PERSIAN:
+                return new PersianLocale();
+            default:
+                return new PersianLocale();
+        }
+    }
+
+    public static Roozh getInstance(RoozhLocale locale) {
+        return createInstance(locale);
+    }
 
     /**
      * Get manipulated day
@@ -333,39 +364,15 @@ public class Roozh {
                 + jD - 1;
     }
 
-    public enum Months {
-        FARVARDIN("\u0641\u0631\u0648\u0631\u062f\u06cc\u0646"), ORDIBEHESHT("\u0627\u0631\u062f\u06cc\u0628\u0647\u0634\u062a"), KHORDAD("\u062e\u0631\u062f\u0627\u062f"), TIR("\u062a\u06cc\u0631"), MORDAD("\u0645\u0631\u062f\u0627\u062f"), SHAHRIVAR("\u0634\u0647\u0631\u06cc\u0648\u0631"), MEHR("\u0645\u0647\u0631"), ABAN("\u0622\u0628\u0627\u0646"), AZAR("\u0622\u0630\u0631"), DEY("\u062f\u06cc"), BAHMAN("\u0628\u0647\u0645\u0646"), ESFAND("\u0627\u0633\u0641\u0646\u062f");
-        private final String sName;
-
-        Months(String name) {
-            this.sName = name;
-        }
-
-        public static String getName(int i) {
-            // starts from 0
-            return Months.values()[i - 1].getName();
-        }
-
-        public String getName() {
-            return sName;
-        }
-
-        public enum Short {
-            FARVARDIN("\u0641\u0631\u0648"), ORDIBEHESHT("\u0627\u0631\u062f"), KHORDAD("\u062e\u0631\u062f"), TIR("\u062a\u06cc\u0631"), MORDAD("\u0645\u0631\u062f"), SHAHRIVAR("\u0634\u0647\u0631"), MEHR("\u0645\u0647\u0631"), ABAN("\u0622\u0628\u0627"), AZAR("\u0622\u0630\u0631"), DEY("\u062f\u06cc"), BAHMAN("\u0628\u0647\u0645"), ESFAND("\u0627\u0633\u0641");
-            private final String sName;
-
-            Short(String name) {
-                this.sName = name;
-            }
-
-            public static String getName(int i) {
-                // starts from 0
-                return Months.Short.values()[i - 1].getName();
-            }
-
-            public String getName() {
-                return sName;
-            }
+    public String getMonthName(boolean shortName) {
+        switch (locale) {
+            default:
+            case PERSIAN:
+                if (!shortName) {
+                    return PersianLocale.Month.Long.getS(calendar.get(Calendar.MONTH));
+                } else {
+                    return PersianLocale.Month.Short.getS(calendar.get(Calendar.MONTH));
+                }
         }
     }
 }

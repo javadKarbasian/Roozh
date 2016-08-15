@@ -17,10 +17,8 @@
 package io.github.meness.roozh;
 
 /**
- * describe components value types
- *
- * @since 2.0
+ * @since 3.0
  */
-public enum Presentation {
-    TEXT, YEAR, MONTH, NUMBER
+public enum RoozhLocale {
+    PERSIAN
 }
