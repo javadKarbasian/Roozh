@@ -164,6 +164,16 @@ public class Roozh {
     }
 
     /**
+     * changes to datetime calendar obj for Tehran
+     */
+    private void updateCalendarForTehran(Calendar cal) {
+        // set first day of week in Iran
+        cal.setFirstDayOfWeek(Calendar.SATURDAY);
+        // set Asia/Tehran as timezone but doesn't work!
+        cal.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
+    }
+
+    /**
      * Calculates the Julian Day number (JG2JD) from Gregorian or Julian
      * calendar dates. This integer number corresponds to the noon of the date
      * (i.e. 12 hours of Universal Time). The procedure was tested to be good
@@ -220,16 +230,6 @@ public class Roozh {
 
         iJM = 7 + k / 30;
         iJD = (k % 30) + 1;
-    }
-
-    /**
-     * changes to datetime calendar obj for Tehran
-     */
-    private void updateCalendarForTehran(Calendar calendar) {
-        // set first day of week in Iran
-        calendar.setFirstDayOfWeek(Calendar.SATURDAY);
-        // set Asia/Tehran as timezone but doesn't work!
-        calendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
     }
 
     /**
