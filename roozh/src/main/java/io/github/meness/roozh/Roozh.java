@@ -151,11 +151,11 @@ public class Roozh {
     }
 
     public Roozh gregorianToPersian(Calendar cal) {
+        updateCalendarForTehran(cal);
         // months start from 0
         int jd = JG2JD(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH), 0);
         JD2Jal(jd);
         calendar = cal;
-        changesForTehran();
         calendar.set(Calendar.YEAR, iJY);
         calendar.set(Calendar.MONTH, iJM);
         calendar.set(Calendar.DAY_OF_MONTH, iJD);
@@ -225,15 +225,11 @@ public class Roozh {
     /**
      * changes to datetime calendar obj for Tehran
      */
-    private void changesForTehran() {
+    private void updateCalendarForTehran(Calendar calendar) {
         // set first day of week in Iran
         calendar.setFirstDayOfWeek(Calendar.SATURDAY);
-
         // set Asia/Tehran as timezone but doesn't work!
         calendar.setTimeZone(TimeZone.getTimeZone("Asia/Tehran"));
-        // issue: Java doesn't apply 'Asia/Tehran' timezone
-        // adding 1 millisecond fixes that issue.
-        calendar.add(Calendar.MILLISECOND, 1);
     }
 
     /**
@@ -313,10 +309,10 @@ public class Roozh {
      * Converts Persian(Jalali) date to Gregorian date
      */
     public void persianToGregorian(Calendar cal) {
+        updateCalendarForTehran(cal);
         int jd = Jal2JD(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
         JD2JG(jd, 0);
         calendar = cal;
-        changesForTehran();
         calendar.set(Calendar.YEAR, iGY);
         calendar.set(Calendar.MONTH, iGM);
         calendar.set(Calendar.DAY_OF_MONTH, iGD);
