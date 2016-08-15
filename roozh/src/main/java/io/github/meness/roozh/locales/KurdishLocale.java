@@ -22,7 +22,7 @@ import io.github.meness.roozh.RoozhLocale;
 /**
  * Persian locale
  *
- * @since 3.0
+ * @since 3.1.1
  */
 public class KurdishLocale extends Roozh {
     public KurdishLocale() {
