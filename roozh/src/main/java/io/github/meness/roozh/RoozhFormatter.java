@@ -271,8 +271,7 @@ public class RoozhFormatter {
      *
      * @return this
      * @see #appendMonth()
-     * @see #appendMonthFullName()
-     * @see #appendMonthShortName()
+     * @see #appendMonthName()
      */
     public RoozhFormatter appendMonthLeadingZero() {
         elements.add(new Month().setMinimumLength(2));
@@ -284,24 +283,10 @@ public class RoozhFormatter {
      *
      * @return this
      * @see #appendMonthLeadingZero()
-     * @see #appendMonthFullName()
-     * @see #appendMonthShortName()
+     * @see #appendMonthName()
      */
     public RoozhFormatter appendMonth() {
         elements.add(new Month().setMinimumLength(1));
-        return this;
-    }
-
-    /**
-     * Append month with short name
-     *
-     * @return this
-     * @see #appendMonth()
-     * @see #appendMonthLeadingZero()
-     * @see #appendMonthFullName()
-     */
-    public RoozhFormatter appendMonthShortName() {
-        elements.add(new Month().setMinimumLength(3));
         return this;
     }
 
@@ -311,9 +296,8 @@ public class RoozhFormatter {
      * @return this
      * @see #appendMonth()
      * @see #appendMonthLeadingZero()
-     * @see #appendMonthShortName()
      */
-    public RoozhFormatter appendMonthFullName() {
+    public RoozhFormatter appendMonthName() {
         elements.add(new Month().setMinimumLength(4));
         return this;
     }
@@ -377,10 +361,9 @@ public class RoozhFormatter {
                     return Integer.toString(roozh.getMonth());
                 } else if (component.getMinimumLength() == 2) {
                     return formatByLeadingZero(roozh.getMonth());
-                } else if (component.getMinimumLength() == 3) {
-                    return roozh.getMonthName(true);
+                } else {
+                    return roozh.getMonthName();
                 }
-                return roozh.getMonthName(false);
             case NUMBER:
                 if (component instanceof Hour) {
                     if (((Hour) component).getClock() == Hour.Clock.CLOCK_12) {

@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         final RoozhFormatter formatter = new RoozhFormatter()
                 .appendDayOfMonth(false)
                 .appendSpace()
-                .appendMonthFullName()
+                .appendMonthName()
                 .appendSpace()
                 .appendYear(false)
                 .appendNewLine()
