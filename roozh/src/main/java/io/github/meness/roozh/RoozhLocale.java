@@ -20,5 +20,5 @@ package io.github.meness.roozh;
  * @since 3.0
  */
 public enum RoozhLocale {
-    PERSIAN
+    PERSIAN, KURDISH
 }
