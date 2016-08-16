@@ -12,10 +12,10 @@ If these questions seem familiar, the Roozh is the one here can help you achieve
 * Integrate in less than 5 minutes
 * Compatible down to Java 1.7
 * Quick and simple API
-* Persian and Kurdish locales are supported
+* **Supported Locales:** Persian, Kurdish, Dari, and Pashto
 * **Formatter**
 * Tested and stable
-* **~16KB**
+* **~22KB**
 
 ## The Algorithm
 This algorithm is presented by [Kazimierz Borkowski](http://www.astro.uni.torun.pl/~kb/personal.html) and can be found [here](http://www.astro.uni.torun.pl/~kb/Papers/EMP/PersianC-EMP.htm) and it's publishing is authorized by it's author.
@@ -52,7 +52,8 @@ RoozhFormatter formatter = new RoozhFormatter()
 	.appendSpace()
 	.appendAmPm();
 // Format with current time and default Persian locale
-// or use RoozhLocale.KURDISH with build() to have Kurdish locale
+// or use predefined locales with build()
+// e.g. formatter.build(RoozhLocale.KURDISH);
 String formatted = formatter.build();
 ```
 
