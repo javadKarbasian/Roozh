@@ -28,9 +28,9 @@ import io.github.meness.roozh.locales.PersianLocale;
  * This class contains methods for converting Jalali (Solar) and Gregorian dates
  * into each other based Kazimierz M. Borkowski paper about Jalali date.
  *
- * @author Kaveh Shahbazian
  * @author Alireza Eskandarpour Shoferi
- * @version 3.1.1
+ * @author Kaveh Shahbazian
+ * @version 3.3.1
  * @see <a href="https://github.com/meNESS/Roozh/">Roozh on Github</a>
  * @see <a href="http://www.astro.uni.torun.pl/~kb/Papers/EMP/PersianC-EMP.htm">The Persian calendar for 3000 years</a>
  * @since 0.0.1-alpha

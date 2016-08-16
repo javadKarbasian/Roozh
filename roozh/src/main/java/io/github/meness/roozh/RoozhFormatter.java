@@ -330,6 +330,7 @@ public class RoozhFormatter {
      * @param roozh Roozh
      * @return Formatted string
      * @see #build()
+     * @see #build(RoozhLocale)
      */
     public String build(Roozh roozh) {
         if (elements.isEmpty()) {
