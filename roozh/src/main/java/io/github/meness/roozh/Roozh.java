@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 import io.github.meness.roozh.locales.DariLocale;
+import io.github.meness.roozh.locales.EnglishLocale;
 import io.github.meness.roozh.locales.KurdishLocale;
 import io.github.meness.roozh.locales.PashtoLocale;
 import io.github.meness.roozh.locales.PersianLocale;
@@ -30,7 +31,7 @@ import io.github.meness.roozh.locales.PersianLocale;
  *
  * @author Alireza Eskandarpour Shoferi
  * @author Kaveh Shahbazian
- * @version 3.3.1
+ * @version 3.4.1
  * @see <a href="https://github.com/meNESS/Roozh/">Roozh on Github</a>
  * @see <a href="http://www.astro.uni.torun.pl/~kb/Papers/EMP/PersianC-EMP.htm">The Persian calendar for 3000 years</a>
  * @since 0.0.1-alpha
@@ -71,6 +72,8 @@ public abstract class Roozh {
                 return new DariLocale();
             case PASHTO:
                 return new PashtoLocale();
+            case ENGLISH:
+                return new EnglishLocale();
         }
     }
 
@@ -388,6 +391,8 @@ public abstract class Roozh {
                 return DariLocale.Month.getS(calendar.get(Calendar.MONTH));
             case PASHTO:
                 return PashtoLocale.Month.getS(calendar.get(Calendar.MONTH));
+            case ENGLISH:
+                return EnglishLocale.Month.getS(calendar.get(Calendar.MONTH));
         }
     }
 }
