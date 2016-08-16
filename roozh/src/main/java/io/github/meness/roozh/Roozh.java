@@ -19,7 +19,9 @@ package io.github.meness.roozh;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import io.github.meness.roozh.locales.DariLocale;
 import io.github.meness.roozh.locales.KurdishLocale;
+import io.github.meness.roozh.locales.PashtoLocale;
 import io.github.meness.roozh.locales.PersianLocale;
 
 /**
@@ -65,6 +67,10 @@ public abstract class Roozh {
                 return new PersianLocale();
             case KURDISH:
                 return new KurdishLocale();
+            case DARI:
+                return new DariLocale();
+            case PASHTO:
+                return new PashtoLocale();
         }
     }
 
@@ -378,6 +384,10 @@ public abstract class Roozh {
                 return PersianLocale.Month.getS(calendar.get(Calendar.MONTH));
             case KURDISH:
                 return KurdishLocale.Month.getS(calendar.get(Calendar.MONTH));
+            case DARI:
+                return DariLocale.Month.getS(calendar.get(Calendar.MONTH));
+            case PASHTO:
+                return PashtoLocale.Month.getS(calendar.get(Calendar.MONTH));
         }
     }
 }
