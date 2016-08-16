@@ -20,7 +20,7 @@ import io.github.meness.roozh.Roozh;
 import io.github.meness.roozh.RoozhLocale;
 
 /**
- * Persian locale
+ * Kurdish locale
  *
  * @since 3.1.1
  */
