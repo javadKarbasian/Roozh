@@ -347,7 +347,7 @@ public class RoozhFormatter {
                 if (component.getMinimumLength() == 1) {
                     return Integer.toString(roozh.getMonth());
                 } else if (component.getMinimumLength() == 2) {
-                    return formatByLeadingZero(roozh.getMonth());
+                    return leadingZero(roozh.getMonth());
                 } else {
                     return roozh.getMonthName();
                 }
@@ -357,35 +357,35 @@ public class RoozhFormatter {
                         if (component.getMinimumLength() == 1) {
                             return Integer.toString(roozh.getHour());
                         } else if (component.getMinimumLength() == 2) {
-                            return formatByLeadingZero(roozh.getHour());
+                            return leadingZero(roozh.getHour());
                         }
                     } else {
                         if (component.getMinimumLength() == 1) {
                             return Integer.toString(roozh.getHourOfDay());
                         } else if (component.getMinimumLength() == 2) {
-                            return formatByLeadingZero(roozh.getHourOfDay());
+                            return leadingZero(roozh.getHourOfDay());
                         }
                     }
                 } else if (component instanceof Minute) {
                     if (component.getMinimumLength() == 1) {
                         return Integer.toString(roozh.getMinute());
                     }
-                    return formatByLeadingZero(roozh.getMinute());
+                    return leadingZero(roozh.getMinute());
                 } else if (component instanceof Second) {
                     if (component.getMinimumLength() == 1) {
                         return Integer.toString(roozh.getSecond());
                     }
-                    return formatByLeadingZero(roozh.getSecond());
+                    return leadingZero(roozh.getSecond());
                 } else if (component instanceof Millisecond) {
                     if (component.getMinimumLength() == 1) {
-                        return Integer.toString(roozh.getMillisecond());
+                        return Long.toString(roozh.getMillisecond());
                     }
-                    return formatByLeadingZero(roozh.getMillisecond());
+                    return leadingZero(roozh.getMillisecond());
                 } else if (component instanceof DayOfMonth) {
                     if (component.getMinimumLength() == 1) {
                         return Integer.toString(roozh.getDayOfMonth());
                     }
-                    return formatByLeadingZero(roozh.getDayOfMonth());
+                    return leadingZero(roozh.getDayOfMonth());
                 }
             case TEXT:
                 if (component instanceof AmPm) {
@@ -402,13 +402,13 @@ public class RoozhFormatter {
     }
 
     /**
-     * Format by leading zero
+     * insert leading zero if needed
      *
      * @param i Integer to be formatted
      * @return Formatted string
      */
-    private String formatByLeadingZero(int i) {
-        String sI = Integer.toString(i);
+    private String leadingZero(long i) {
+        String sI = Long.toString(i);
         if (sI.length() == 1) {
             return new StringBuilder(sI).insert(0, '0').toString();
         }
