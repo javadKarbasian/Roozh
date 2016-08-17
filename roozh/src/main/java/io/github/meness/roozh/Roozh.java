@@ -38,8 +38,6 @@ import io.github.meness.roozh.locales.PersianLocale;
  */
 
 public abstract class Roozh {
-    public static final String AM = "\u0642\u002e\u0638";
-    public static final String PM = "\u0628\u002e\u0638";
     protected RoozhLocale locale;
     private Calendar calendar;
     private int iJY, iJM, iJD;

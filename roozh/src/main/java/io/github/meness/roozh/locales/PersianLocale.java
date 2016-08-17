@@ -25,6 +25,9 @@ import io.github.meness.roozh.RoozhLocale;
  * @since 3.0
  */
 public class PersianLocale extends Roozh {
+    public static final String AM = "\u0642\u002e\u0638";
+    public static final String PM = "\u0628\u002e\u0638";
+
     public PersianLocale() {
         locale = RoozhLocale.PERSIAN;
     }

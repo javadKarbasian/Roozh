@@ -16,31 +16,54 @@
 
 package io.github.meness.roozh.components;
 
+import java.util.Calendar;
+
 import io.github.meness.roozh.Presentation;
-import io.github.meness.roozh.Roozh;
+import io.github.meness.roozh.RoozhLocale;
+import io.github.meness.roozh.locales.DariLocale;
+import io.github.meness.roozh.locales.EnglishLocale;
+import io.github.meness.roozh.locales.KurdishLocale;
+import io.github.meness.roozh.locales.PashtoLocale;
+import io.github.meness.roozh.locales.PersianLocale;
 
 /**
  * @since 2.7.2
  */
 public class AmPm extends AbstractComponent {
-    private String sAm = Roozh.AM;
-    private String sPm = Roozh.PM;
 
     public AmPm() {
         super(Presentation.TEXT);
     }
 
-    public AmPm(String am, String pm) {
-        super(Presentation.TEXT);
-        this.sAm = am;
-        this.sPm = pm;
-    }
-
-    public String getAm() {
-        return sAm;
-    }
-
-    public String getPm() {
-        return sPm;
+    public String getAmPm(RoozhLocale locale, int i) {
+        if (i == Calendar.AM) {
+            switch (locale) {
+                default:
+                case PERSIAN:
+                    return PersianLocale.AM;
+                case DARI:
+                    return DariLocale.AM;
+                case ENGLISH:
+                    return EnglishLocale.AM;
+                case KURDISH:
+                    return KurdishLocale.AM;
+                case PASHTO:
+                    return PashtoLocale.AM;
+            }
+        } else {
+            switch (locale) {
+                default:
+                case PERSIAN:
+                    return PersianLocale.PM;
+                case DARI:
+                    return DariLocale.PM;
+                case ENGLISH:
+                    return EnglishLocale.PM;
+                case KURDISH:
+                    return KurdishLocale.PM;
+                case PASHTO:
+                    return PashtoLocale.PM;
+            }
+        }
     }
 }

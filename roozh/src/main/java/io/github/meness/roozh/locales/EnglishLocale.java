@@ -25,6 +25,9 @@ import io.github.meness.roozh.RoozhLocale;
  * @since 3.4.1
  */
 public class EnglishLocale extends Roozh {
+    public static final String AM = "a.m.";
+    public static final String PM = "p.m.";
+
     public EnglishLocale() {
         locale = RoozhLocale.ENGLISH;
     }

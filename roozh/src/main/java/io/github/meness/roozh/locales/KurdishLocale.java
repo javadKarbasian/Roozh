@@ -25,6 +25,9 @@ import io.github.meness.roozh.RoozhLocale;
  * @since 3.1.1
  */
 public class KurdishLocale extends Roozh {
+    public static final String AM = "\u067e\u002e\u0646";
+    public static final String PM = "\u062f\u002e\u0646";
+
     public KurdishLocale() {
         locale = RoozhLocale.KURDISH;
     }

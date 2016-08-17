@@ -25,6 +25,9 @@ import io.github.meness.roozh.RoozhLocale;
  * @since 3.3.1
  */
 public class PashtoLocale extends Roozh {
+    public static final String AM = "\u063a\u002e\u0645";
+    public static final String PM = "\u063a\u002e\u0648";
+
     public PashtoLocale() {
         locale = RoozhLocale.PASHTO;
     }

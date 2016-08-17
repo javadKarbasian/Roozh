@@ -17,7 +17,6 @@
 package io.github.meness.roozh;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import io.github.meness.roozh.components.AbstractComponent;
 import io.github.meness.roozh.components.AmPm;
@@ -236,22 +235,9 @@ public class RoozhFormatter {
      * Note: It's useful for using with {@link #appendHour(boolean)}
      *
      * @return this
-     * @see #appendAmPm(String, String)
      */
     public RoozhFormatter appendAmPm() {
         elements.add(new AmPm());
-        return this;
-    }
-
-    /**
-     * Append AM/PM with custom strings
-     * Note: It's useful for using with {@link #appendHour(boolean)}
-     *
-     * @return this
-     * @see #appendAmPm()
-     */
-    public RoozhFormatter appendAmPm(String am, String pm) {
-        elements.add(new AmPm(am, pm));
         return this;
     }
 
@@ -403,7 +389,7 @@ public class RoozhFormatter {
                 }
             case TEXT:
                 if (component instanceof AmPm) {
-                    return roozh.getAmPm() == Calendar.AM ? ((AmPm) component).getAm() : ((AmPm) component).getPm();
+                    return ((AmPm) component).getAmPm(roozh.locale, roozh.getAmPm());
                 }
                 break;
             case YEAR:
