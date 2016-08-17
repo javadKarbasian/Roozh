@@ -45,16 +45,12 @@ public class EnglishLocale extends Roozh {
 
         private String s;
 
-        Month(String s) {
-            this.s = s;
+        Month(String m) {
+            this.s = m;
         }
 
         public static String getS(int i) {
-            return Month.values()[i - 1].getS();
-        }
-
-        public String getS() {
-            return s;
+            return Month.values()[i - 1].s;
         }
     }
 }
