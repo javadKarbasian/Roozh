@@ -38,6 +38,7 @@ import io.github.meness.roozh.locales.PersianLocale;
  */
 
 public abstract class Roozh {
+
     protected RoozhLocale locale;
     private Calendar calendar;
     private int iJY, iJM, iJD;
@@ -105,7 +106,7 @@ public abstract class Roozh {
      * @return Millisecond as <code>int</code>
      * @see Calendar#MILLISECOND
      */
-    public int getMillisecond() {
+    public long getMillisecond() {
         return calendar.get(Calendar.MILLISECOND);
     }
 
