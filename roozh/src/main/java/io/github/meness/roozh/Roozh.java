@@ -37,7 +37,11 @@ import io.github.meness.roozh.locales.PersianLocale;
  * @since 0.0.1-alpha
  */
 
-public abstract class Roozh {
+public abstract class Roozh implements Comparable<Roozh> {
+    @Override
+    public int compareTo(Roozh o) {
+        return calendar.getTimeInMillis() == o.calendar.getTimeInMillis() ? 1 : 0;
+    }
 
     protected RoozhLocale locale;
     private Calendar calendar;
