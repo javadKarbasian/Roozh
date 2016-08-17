@@ -23,8 +23,8 @@ android {
         applicationId "io.github.meness.roozh.app"
         minSdkVersion 7
         targetSdkVersion 24
-        versionCode 9
-        versionName "3.5.2"
+        versionCode 10
+        versionName "3.6.4"
     }
     buildTypes {
         release {
