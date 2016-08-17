@@ -38,11 +38,6 @@ import io.github.meness.roozh.locales.PersianLocale;
  */
 
 public abstract class Roozh implements Comparable<Roozh> {
-    @Override
-    public int compareTo(Roozh o) {
-        return calendar.getTimeInMillis() == o.calendar.getTimeInMillis() ? 1 : 0;
-    }
-
     protected RoozhLocale locale;
     private Calendar calendar;
     private int iJY, iJM, iJD;
@@ -82,6 +77,11 @@ public abstract class Roozh implements Comparable<Roozh> {
 
     public static Roozh getInstance(RoozhLocale locale) {
         return createInstance(locale);
+    }
+
+    @Override
+    public int compareTo(Roozh o) {
+        return calendar.getTimeInMillis() == o.calendar.getTimeInMillis() ? 1 : 0;
     }
 
     /**
