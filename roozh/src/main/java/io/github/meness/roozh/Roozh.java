@@ -31,7 +31,7 @@ import io.github.meness.roozh.locales.PersianLocale;
  *
  * @author Alireza Eskandarpour Shoferi
  * @author Kaveh Shahbazian
- * @version 3.4.1
+ * @version 3.5.2
  * @see <a href="https://github.com/meNESS/Roozh/">Roozh on Github</a>
  * @see <a href="http://www.astro.uni.torun.pl/~kb/Papers/EMP/PersianC-EMP.htm">The Persian calendar for 3000 years</a>
  * @since 0.0.1-alpha
