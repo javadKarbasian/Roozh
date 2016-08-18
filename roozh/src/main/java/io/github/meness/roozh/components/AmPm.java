@@ -25,6 +25,6 @@ public class AmPm extends AbstractComponent {
 
     @Override
     public Object process(Roozh roozh) {
-        return roozh.getAmPmText();
+        return roozh.getAmPmText(roozh.getAmPm());
     }
 }
