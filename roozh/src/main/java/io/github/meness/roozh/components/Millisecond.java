@@ -16,13 +16,19 @@
 
 package io.github.meness.roozh.components;
 
-import io.github.meness.roozh.Presentation;
+import io.github.meness.roozh.Roozh;
+import io.github.meness.roozh.utils.FormatUtils;
 
 /**
  * @since 2.6.1
  */
 public class Millisecond extends AbstractComponent {
-    public Millisecond() {
-        super(Presentation.NUMBER);
+
+    @Override
+    public Object process(Roozh roozh) {
+        if (getMinimumLength() == 1) {
+            return Long.toString(roozh.getMillisecond());
+        }
+        return FormatUtils.leadingZero(roozh.getMillisecond());
     }
 }

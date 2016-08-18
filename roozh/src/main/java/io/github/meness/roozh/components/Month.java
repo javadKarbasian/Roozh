@@ -16,13 +16,21 @@
 
 package io.github.meness.roozh.components;
 
-import io.github.meness.roozh.Presentation;
+import io.github.meness.roozh.Roozh;
+import io.github.meness.roozh.utils.FormatUtils;
 
 /**
  * @since 2.0
  */
 public class Month extends AbstractComponent {
-    public Month() {
-        super(Presentation.MONTH);
+    @Override
+    public Object process(Roozh roozh) {
+        if (getMinimumLength() == 1) {
+            return Integer.toString(roozh.getMonth());
+        } else if (getMinimumLength() == 2) {
+            return FormatUtils.leadingZero(roozh.getMonth());
+        } else {
+            return roozh.getMonthName(roozh.getMonth());
+        }
     }
 }

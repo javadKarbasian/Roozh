@@ -16,13 +16,21 @@
 
 package io.github.meness.roozh.components;
 
-import io.github.meness.roozh.Presentation;
+import io.github.meness.roozh.Roozh;
 
 /**
  * @since 2.0
  */
 public class Year extends AbstractComponent {
     public Year() {
-        super(2, Presentation.YEAR);
+        super(2);
+    }
+
+    @Override
+    public Object process(Roozh roozh) {
+        if (getMinimumLength() == 2) {
+            return Integer.toString(roozh.getYear()).replaceAll("^[0-9]{2}", "");
+        }
+        return Integer.toString(roozh.getYear());
     }
 }
