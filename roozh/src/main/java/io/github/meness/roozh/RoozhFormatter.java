@@ -35,39 +35,41 @@ import io.github.meness.roozh.components.Year;
  */
 public class RoozhFormatter {
     private ArrayList<Object> elements = new ArrayList<>();
-    private StringBuilder stringBuilder;
+    private StringBuilder stringBuilder = new StringBuilder();
+    private Roozh roozh;
 
     /**
      * New string builder will be used
      *
-     * @see #RoozhFormatter(StringBuilder) for providing already defined string builder
+     * @see #RoozhFormatter(Roozh, StringBuilder) for providing already defined string builder
      * @see #RoozhFormatter(RoozhFormatter) for usind old formatter fields
      */
-    public RoozhFormatter() {
-        stringBuilder = new StringBuilder();
+    public RoozhFormatter(Roozh r) {
+        roozh = r;
     }
 
     /**
      * Fields of fresh instance of formatter will be replaced with the old one provided.
      *
      * @param formatter Old formatter
-     * @see #RoozhFormatter(StringBuilder) for providing already defined string builder
-     * @see #RoozhFormatter()
+     * @see #RoozhFormatter(Roozh, StringBuilder) for providing already defined string builder
      */
     public RoozhFormatter(RoozhFormatter formatter) {
         elements = formatter.elements;
         stringBuilder = formatter.stringBuilder;
+        roozh = formatter.roozh;
     }
 
     /**
      * Last result will be appended to provided string builder
      *
      * @param stringBuilder already defined StringBuilder
-     * @see #RoozhFormatter()
+     * @param r             Roozh
      * @see #RoozhFormatter(RoozhFormatter) for usind old formatter fields
      */
-    public RoozhFormatter(StringBuilder stringBuilder) {
+    public RoozhFormatter(Roozh r, StringBuilder stringBuilder) {
         this.stringBuilder = stringBuilder;
+        roozh = r;
     }
 
     /**
@@ -298,16 +300,8 @@ public class RoozhFormatter {
         return this;
     }
 
-    /**
-     * Build with current time and default locale
-     * Note: Elements order is important.
-     *
-     * @return Formatted string
-     * @see #build(Roozh)
-     * @see #build(RoozhLocale)
-     */
     public String build() {
-        return build(Roozh.getInstance().gregorianToPersian());
+        return buildFormatter(roozh);
     }
 
     /**
@@ -315,115 +309,20 @@ public class RoozhFormatter {
      *
      * @param roozh Roozh
      * @return Formatted string
-     * @see #build()
-     * @see #build(RoozhLocale)
      */
-    public String build(Roozh roozh) {
+    private String buildFormatter(Roozh roozh) {
         if (elements.isEmpty()) {
             throw new RuntimeException("You have to put some elements first.");
         }
 
         for (Object element : elements) {
-            if (element instanceof String || element instanceof Character) {
-                stringBuilder.append(element);
+            if (element instanceof AbstractComponent) {
+                stringBuilder.append(((AbstractComponent) element).process(roozh));
             } else {
-                stringBuilder.append(formatByPresentation((AbstractComponent) element, roozh));
+                stringBuilder.append(element);
             }
         }
 
         return stringBuilder.toString();
-    }
-
-    /**
-     * format components by provided presentations
-     *
-     * @param component Component
-     * @param roozh     Roozh
-     * @return Formatted string
-     */
-    private String formatByPresentation(AbstractComponent component, Roozh roozh) {
-        switch (component.getPresentation()) {
-            case MONTH:
-                if (component.getMinimumLength() == 1) {
-                    return Integer.toString(roozh.getMonth());
-                } else if (component.getMinimumLength() == 2) {
-                    return leadingZero(roozh.getMonth());
-                } else {
-                    return roozh.getMonthName();
-                }
-            case NUMBER:
-                if (component instanceof Hour) {
-                    if (((Hour) component).getClock() == Hour.Clock.CLOCK_12) {
-                        if (component.getMinimumLength() == 1) {
-                            return Integer.toString(roozh.getHour());
-                        } else if (component.getMinimumLength() == 2) {
-                            return leadingZero(roozh.getHour());
-                        }
-                    } else {
-                        if (component.getMinimumLength() == 1) {
-                            return Integer.toString(roozh.getHourOfDay());
-                        } else if (component.getMinimumLength() == 2) {
-                            return leadingZero(roozh.getHourOfDay());
-                        }
-                    }
-                } else if (component instanceof Minute) {
-                    if (component.getMinimumLength() == 1) {
-                        return Integer.toString(roozh.getMinute());
-                    }
-                    return leadingZero(roozh.getMinute());
-                } else if (component instanceof Second) {
-                    if (component.getMinimumLength() == 1) {
-                        return Integer.toString(roozh.getSecond());
-                    }
-                    return leadingZero(roozh.getSecond());
-                } else if (component instanceof Millisecond) {
-                    if (component.getMinimumLength() == 1) {
-                        return Long.toString(roozh.getMillisecond());
-                    }
-                    return leadingZero(roozh.getMillisecond());
-                } else if (component instanceof DayOfMonth) {
-                    if (component.getMinimumLength() == 1) {
-                        return Integer.toString(roozh.getDayOfMonth());
-                    }
-                    return leadingZero(roozh.getDayOfMonth());
-                }
-            case TEXT:
-                if (component instanceof AmPm) {
-                    return ((AmPm) component).getAmPm(roozh.locale, roozh.getAmPm());
-                }
-                break;
-            case YEAR:
-                if (component.getMinimumLength() == 2) {
-                    return Integer.toString(roozh.getYear()).replaceAll("^[0-9]{2}", "");
-                }
-                return Integer.toString(roozh.getYear());
-        }
-        return null;
-    }
-
-    /**
-     * insert leading zero if needed
-     *
-     * @param i Integer to be formatted
-     * @return Formatted string
-     */
-    private String leadingZero(long i) {
-        String sI = Long.toString(i);
-        if (sI.length() == 1) {
-            return new StringBuilder(sI).insert(0, '0').toString();
-        }
-        return sI;
-    }
-
-    /**
-     * Build with current time and defined locale
-     * Note: Elements order is important.
-     *
-     * @return Formatted string
-     * @see #build(Roozh)
-     * @see #build()
-     */
-    public String build(RoozhLocale locale) {
-        return build(Roozh.getInstance(locale).gregorianToPersian());
     }
 }

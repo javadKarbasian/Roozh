@@ -16,31 +16,25 @@
 
 package io.github.meness.roozh.components;
 
-import io.github.meness.roozh.Presentation;
+import io.github.meness.roozh.Roozh;
 
 /**
  * @since 2.0
  */
 public abstract class AbstractComponent {
     private static int MAX_DIGITS = 4;
+    protected Roozh roozh;
     private int minDigits = 1;
-    private Presentation presentation;
 
-    public AbstractComponent(Presentation presentation) {
-        this.presentation = presentation;
+    public AbstractComponent() {
+
     }
 
     public AbstractComponent(int minDigits) {
         this.minDigits = minDigits;
     }
 
-    public AbstractComponent(int minDigits, Presentation presentation) {
-        this.minDigits = minDigits;
-        this.presentation = presentation;
-    }
-
-    public AbstractComponent() {
-    }
+    public abstract Object process(Roozh roozh);
 
     public int getMinimumLength() {
         return minDigits;
@@ -50,9 +44,5 @@ public abstract class AbstractComponent {
         // i is between min digits and max digits
         minDigits = i < minDigits ? minDigits : i > MAX_DIGITS ? MAX_DIGITS : i;
         return this;
-    }
-
-    public Presentation getPresentation() {
-        return presentation;
     }
 }

@@ -31,7 +31,7 @@ import io.github.meness.roozh.locales.PersianLocale;
  *
  * @author Alireza Eskandarpour Shoferi
  * @author Kaveh Shahbazian
- * @version 3.6.4
+ * @version 4.0
  * @see <a href="https://github.com/meNESS/Roozh/">Roozh on Github</a>
  * @see <a href="http://www.astro.uni.torun.pl/~kb/Papers/EMP/PersianC-EMP.htm">The Persian calendar for 3000 years</a>
  * @since 0.0.1-alpha
@@ -80,6 +80,25 @@ public abstract class Roozh implements Comparable<Roozh> {
     }
 
     @Override
+    public String toString() {
+        return "Roozh{" +
+                "calendar=" + calendar +
+                ", time=" + Long.toString(getMillisecond()) +
+                ", locale=" + locale +
+                '}';
+    }
+
+    /**
+     * Get manipulated millisecond
+     *
+     * @return Millisecond as <code>int</code>
+     * @see Calendar#MILLISECOND
+     */
+    public long getMillisecond() {
+        return calendar.get(Calendar.MILLISECOND);
+    }
+
+    @Override
     public int compareTo(Roozh o) {
         return calendar.getTimeInMillis() == o.calendar.getTimeInMillis() ? 1 : 0;
     }
@@ -102,16 +121,6 @@ public abstract class Roozh implements Comparable<Roozh> {
      */
     public int getMonth() {
         return calendar.get(Calendar.MONTH);
-    }
-
-    /**
-     * Get manipulated millisecond
-     *
-     * @return Millisecond as <code>int</code>
-     * @see Calendar#MILLISECOND
-     */
-    public long getMillisecond() {
-        return calendar.get(Calendar.MILLISECOND);
     }
 
     /**
@@ -153,6 +162,8 @@ public abstract class Roozh implements Comparable<Roozh> {
     public int getHourOfDay() {
         return calendar.get(Calendar.HOUR_OF_DAY);
     }
+
+    public abstract String getAmPmText(int am_pm);
 
     /**
      * Get manipulated AM/PM
@@ -381,21 +392,8 @@ public abstract class Roozh implements Comparable<Roozh> {
     /**
      * get month name
      *
-     * @return String month name
+     * @param month month number
+     * @return month name
      */
-    public String getMonthName() {
-        switch (locale) {
-            default:
-            case PERSIAN:
-                return PersianLocale.Month.getS(calendar.get(Calendar.MONTH));
-            case KURDISH:
-                return KurdishLocale.Month.getS(calendar.get(Calendar.MONTH));
-            case DARI:
-                return DariLocale.Month.getS(calendar.get(Calendar.MONTH));
-            case PASHTO:
-                return PashtoLocale.Month.getS(calendar.get(Calendar.MONTH));
-            case ENGLISH:
-                return EnglishLocale.Month.getS(calendar.get(Calendar.MONTH));
-        }
-    }
+    public abstract String getMonthName(int month);
 }

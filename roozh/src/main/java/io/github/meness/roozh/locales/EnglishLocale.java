@@ -16,6 +16,8 @@
 
 package io.github.meness.roozh.locales;
 
+import java.util.Calendar;
+
 import io.github.meness.roozh.Roozh;
 import io.github.meness.roozh.RoozhLocale;
 
@@ -30,6 +32,20 @@ public class EnglishLocale extends Roozh {
 
     public EnglishLocale() {
         locale = RoozhLocale.ENGLISH;
+    }
+
+    @Override
+    public String getAmPmText(int am_pm) {
+        if (am_pm == Calendar.AM) {
+            return AM;
+        } else {
+            return PM;
+        }
+    }
+
+    @Override
+    public String getMonthName(int month) {
+        return Month.getS(month);
     }
 
     public enum Month {

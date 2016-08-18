@@ -16,7 +16,8 @@
 
 package io.github.meness.roozh.components;
 
-import io.github.meness.roozh.Presentation;
+import io.github.meness.roozh.Roozh;
+import io.github.meness.roozh.utils.FormatUtils;
 
 /**
  * @since 2.6.1
@@ -25,12 +26,26 @@ public class Hour extends AbstractComponent {
     private Clock clock;
 
     public Hour(Clock clock) {
-        super(Presentation.NUMBER);
         this.clock = clock;
     }
 
     public Clock getClock() {
         return clock;
+    }
+
+    @Override
+    public Object process(Roozh roozh) {
+        if (clock == Hour.Clock.CLOCK_12) {
+            if (getMinimumLength() == 1) {
+                return Integer.toString(roozh.getHour());
+            }
+            return FormatUtils.leadingZero(roozh.getHour());
+        } else {
+            if (getMinimumLength() == 1) {
+                return Integer.toString(roozh.getHourOfDay());
+            }
+            return FormatUtils.leadingZero(roozh.getHourOfDay());
+        }
     }
 
     public enum Clock {

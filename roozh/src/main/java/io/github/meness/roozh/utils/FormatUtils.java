@@ -14,13 +14,29 @@
  * limitations under the License.
  */
 
-package io.github.meness.roozh;
+package io.github.meness.roozh.utils;
 
 /**
- * describe components value types
+ * Format Utilities
  *
- * @since 2.0
+ * @since 4.0
  */
-public enum Presentation {
-    TEXT, YEAR, MONTH, NUMBER
+public final class FormatUtils {
+    private FormatUtils() throws InstantiationException {
+        throw new InstantiationException("This class is not for instantiation.");
+    }
+
+    /**
+     * insert leading zero if needed
+     *
+     * @param i Integer to be formatted
+     * @return Formatted string
+     */
+    public static String leadingZero(long i) {
+        String sI = Long.toString(i);
+        if (sI.length() == 1) {
+            return new StringBuilder(sI).insert(0, '0').toString();
+        }
+        return sI;
+    }
 }
