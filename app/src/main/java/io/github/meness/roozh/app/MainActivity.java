@@ -36,18 +36,18 @@ public class MainActivity extends AppCompatActivity {
         AppCompatButton updateBtn = (AppCompatButton) findViewById(R.id.updateBtn);
 
         // build formatter with current time
-        textView.setText(newFormatter().build());
+        textView.setText(newFormatter());
 
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // rebuild formatter with current time
-                textView.setText(newFormatter().build());
+                textView.setText(newFormatter());
             }
         });
     }
 
-    private RoozhFormatter newFormatter() {
+    private String newFormatter() {
         return new RoozhFormatter(Roozh.getInstance().gregorianToPersian())
                 .appendDayOfMonth(false)
                 .appendSpace()
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 .appendDot()
                 .appendMillisecond()
                 .appendSpace()
-                .appendAmPm();
+                .appendAmPm()
+                .build();
     }
 }
