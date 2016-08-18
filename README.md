@@ -15,7 +15,7 @@ If these questions seem familiar, the Roozh is the one here can help you achieve
 * **Supported Locales:** Persian, Kurdish, Dari, Pashto, and English
 * **Formatter**
 * Tested and stable
-* **~22KB**
+* **~25KB**
 
 ## The Algorithm
 This algorithm is presented by [Kazimierz Borkowski](http://www.astro.uni.torun.pl/~kb/personal.html) and can be found [here](http://www.astro.uni.torun.pl/~kb/Papers/EMP/PersianC-EMP.htm) and it's publishing is authorized by it's author.
@@ -35,26 +35,27 @@ Clone this repository or download the compressed file, then extract to your comp
 
 ## Usage
 ```java
-RoozhFormatter formatter = new RoozhFormatter()
-	.appendDayOfMonth(false)
-	.appendSpace()
-	.appendMonthName()
-	.appendSpace()
-	.appendYear(false)
-	.appendNewLine()
-	.appendHour(true)
-	.appendColon()
-	.appendMinute(true)
-	.appendColon()
-	.appendSecond(true)
-	.appendDot()
-	.appendMillisecond()
-	.appendSpace()
-	.appendAmPm();
 // Format with current time and default Persian locale
-// or use predefined locales with build()
-// e.g. formatter.build(RoozhLocale.KURDISH);
-String formatted = formatter.build();
+// or use predefined locales with Roozh.getInstance()
+// e.g. new RoozhFormatter(Roozh.getInstance(RoozhLocale.KURDISH).gregorianToPersian())
+
+new RoozhFormatter(Roozh.getInstance().gregorianToPersian())
+  .appendDayOfMonth(false)
+  .appendSpace()
+  .appendMonthName()
+  .appendSpace()
+  .appendYear(false)
+  .appendNewLine()
+  .appendHour(true)
+  .appendColon()
+  .appendMinute(true)
+  .appendColon()
+  .appendSecond(true)
+  .appendDot()
+  .appendMillisecond()
+  .appendSpace()
+  .appendAmPm()
+  .build();
 ```
 
 ## Credits
