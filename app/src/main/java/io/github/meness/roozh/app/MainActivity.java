@@ -22,6 +22,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
+import io.github.meness.roozh.Roozh;
 import io.github.meness.roozh.RoozhFormatter;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,7 +35,20 @@ public class MainActivity extends AppCompatActivity {
         final AppCompatTextView textView = (AppCompatTextView) findViewById(R.id.outputTxt);
         AppCompatButton updateBtn = (AppCompatButton) findViewById(R.id.updateBtn);
 
-        final RoozhFormatter formatter = new RoozhFormatter()
+        // build formatter with current time
+        textView.setText(newFormatter().build());
+
+        updateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // rebuild formatter with current time
+                textView.setText(newFormatter().build());
+            }
+        });
+    }
+
+    private RoozhFormatter newFormatter() {
+        return new RoozhFormatter(Roozh.getInstance().gregorianToPersian())
                 .appendDayOfMonth(false)
                 .appendSpace()
                 .appendMonthName()
@@ -50,15 +64,5 @@ public class MainActivity extends AppCompatActivity {
                 .appendMillisecond()
                 .appendSpace()
                 .appendAmPm();
-        // build formatter with current time
-        textView.setText(formatter.build());
-
-        updateBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // rebuild formatter with current time
-                textView.setText(formatter.clean().build());
-            }
-        });
     }
 }
