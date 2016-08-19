@@ -15,7 +15,7 @@ If these questions seem familiar, the Roozh is the one here can help you achieve
 * **Supported Locales:** Persian, Kurdish, Dari, Pashto, and English
 * **Formatter**
 * Tested and stable
-* **~25KB**
+* **~31KB**
 
 ## The Algorithm
 This algorithm is presented by [Kazimierz Borkowski](http://www.astro.uni.torun.pl/~kb/personal.html) and can be found [here](http://www.astro.uni.torun.pl/~kb/Papers/EMP/PersianC-EMP.htm) and it's publishing is authorized by it's author.
@@ -40,6 +40,8 @@ Clone this repository or download the compressed file, then extract to your comp
 // e.g. new RoozhFormatter(Roozh.getInstance(RoozhLocale.KURDISH).gregorianToPersian())
 
 new RoozhFormatter(Roozh.getInstance().gregorianToPersian())
+  .appendDayOfWeekText()
+  .appendSpace()
   .appendDayOfMonth(false)
   .appendSpace()
   .appendMonthName()
