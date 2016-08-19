@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String newFormatter() {
         return new RoozhFormatter(Roozh.getInstance().gregorianToPersian())
+                .appendDayOfWeekText()
+                .appendSpace()
                 .appendDayOfMonth(false)
                 .appendSpace()
                 .appendMonthName()
