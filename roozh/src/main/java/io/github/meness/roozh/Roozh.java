@@ -31,7 +31,7 @@ import io.github.meness.roozh.locales.PersianLocale;
  *
  * @author Alireza Eskandarpour Shoferi
  * @author Kaveh Shahbazian
- * @version 4.0
+ * @version 4.1
  * @see <a href="https://github.com/meNESS/Roozh/">Roozh on Github</a>
  * @see <a href="http://www.astro.uni.torun.pl/~kb/Papers/EMP/PersianC-EMP.htm">The Persian calendar for 3000 years</a>
  * @since 0.0.1-alpha
@@ -103,6 +103,8 @@ public abstract class Roozh implements Comparable<Roozh> {
         return calendar.getTimeInMillis() == o.calendar.getTimeInMillis() ? 1 : 0;
     }
 
+    public abstract String getDayOfWeekText(int dow);
+
     /**
      * Get manipulated day
      *
@@ -110,7 +112,16 @@ public abstract class Roozh implements Comparable<Roozh> {
      * @see Calendar#DAY_OF_MONTH
      */
     public int getDayOfMonth() {
-        return calendar.get(Calendar.DAY_OF_MONTH);
+        return iJD;
+    }
+
+    /**
+     * get day of week
+     *
+     * @return int
+     */
+    public int getDayOfWeek() {
+        return calendar.get(Calendar.DAY_OF_WEEK);
     }
 
     /**
@@ -120,7 +131,7 @@ public abstract class Roozh implements Comparable<Roozh> {
      * @see Calendar#MONTH
      */
     public int getMonth() {
-        return calendar.get(Calendar.MONTH);
+        return iJM;
     }
 
     /**
@@ -182,7 +193,7 @@ public abstract class Roozh implements Comparable<Roozh> {
      * @see Calendar#YEAR
      */
     public int getYear() {
-        return calendar.get(Calendar.YEAR);
+        return iJY;
     }
 
     /**
@@ -213,9 +224,6 @@ public abstract class Roozh implements Comparable<Roozh> {
         int jd = JG2JD(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH), 0);
         JD2Jal(jd);
         calendar = cal;
-        calendar.set(Calendar.YEAR, iJY);
-        calendar.set(Calendar.MONTH, iJM);
-        calendar.set(Calendar.DAY_OF_MONTH, iJD);
 
         return this;
     }
@@ -365,14 +373,13 @@ public abstract class Roozh implements Comparable<Roozh> {
     /**
      * Converts Persian(Jalali) date to Gregorian date
      */
-    public void persianToGregorian(Calendar cal) {
+    public Roozh persianToGregorian(Calendar cal) {
         updateCalendarForTehran(cal);
         int jd = Jal2JD(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
         JD2JG(jd, 0);
         calendar = cal;
-        calendar.set(Calendar.YEAR, iGY);
-        calendar.set(Calendar.MONTH, iGM);
-        calendar.set(Calendar.DAY_OF_MONTH, iGD);
+
+        return this;
     }
 
     /**
