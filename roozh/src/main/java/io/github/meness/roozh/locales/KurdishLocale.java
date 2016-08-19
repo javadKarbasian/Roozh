@@ -35,6 +35,11 @@ public class KurdishLocale extends Roozh {
     }
 
     @Override
+    public String getDayOfWeekText(int dow) {
+        return DayOfWeek.getS(dow);
+    }
+
+    @Override
     public String getAmPmText(int am_pm) {
         if (am_pm == Calendar.AM) {
             return AM;
@@ -46,6 +51,25 @@ public class KurdishLocale extends Roozh {
     @Override
     public String getMonthName(int month) {
         return Month.getS(month);
+    }
+
+    public enum DayOfWeek {
+        SATURDAY("\u0634\u06d5\u0645\u0645\u06d5"),
+        SUNDAY("\u06cc\u06d5\u06a9\u0634\u06d5\u0645\u0645\u06d5"),
+        MONDAY("\u062f\u0648\u0648\u0634\u06d5\u0645\u0645\u06d5"),
+        TUESDAY("\u0633\u06ce\u0634\u06d5\u0645\u0645\u06d5"),
+        WEDNESDAY("\u0686\u0648\u0627\u0631\u0634\u06d5\u0645\u0645\u06d5"),
+        THURSDAY("\u067e\u06ce\u0646\u062c\u0634\u06d5\u0645\u0645\u06d5"),
+        FRIDAY("\u06be\u06d5\u06cc\u0646\u06cc");
+        private String s;
+
+        DayOfWeek(String m) {
+            this.s = m;
+        }
+
+        public static String getS(int i) {
+            return DayOfWeek.values()[i].s;
+        }
     }
 
     public enum Month {

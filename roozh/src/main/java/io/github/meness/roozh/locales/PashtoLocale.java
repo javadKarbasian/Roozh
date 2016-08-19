@@ -35,6 +35,11 @@ public class PashtoLocale extends Roozh {
     }
 
     @Override
+    public String getDayOfWeekText(int dow) {
+        return DayOfWeek.getS(dow);
+    }
+
+    @Override
     public String getAmPmText(int am_pm) {
         if (am_pm == Calendar.AM) {
             return AM;
@@ -46,6 +51,25 @@ public class PashtoLocale extends Roozh {
     @Override
     public String getMonthName(int month) {
         return Month.getS(month);
+    }
+
+    public enum DayOfWeek {
+        SATURDAY("\u0627\u0648\u0646\u06cd"),
+        SUNDAY("\u064a\u0648\u0646\u06cd"),
+        MONDAY("\u062f\u0648\u0646\u06cd"),
+        TUESDAY("\u062f\u0631\u06d0 \u0646\u06cd"),
+        WEDNESDAY("\u0685\u0644\u0631\u0646\u06cd"),
+        THURSDAY("\u067e\u064a\u0646\u0681\u0646\u06cd"),
+        FRIDAY("\u062c\u0645\u0639\u0647");
+        private String s;
+
+        DayOfWeek(String m) {
+            this.s = m;
+        }
+
+        public static String getS(int i) {
+            return DayOfWeek.values()[i].s;
+        }
     }
 
     public enum Month {

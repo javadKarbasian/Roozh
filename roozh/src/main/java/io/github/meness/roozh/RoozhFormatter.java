@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import io.github.meness.roozh.components.AbstractComponent;
 import io.github.meness.roozh.components.AmPm;
 import io.github.meness.roozh.components.DayOfMonth;
+import io.github.meness.roozh.components.DayOfWeek;
 import io.github.meness.roozh.components.Hour;
 import io.github.meness.roozh.components.Millisecond;
 import io.github.meness.roozh.components.Minute;
@@ -275,6 +276,42 @@ public class RoozhFormatter {
      */
     public RoozhFormatter appendMonth() {
         elements.add(new Month().setMinimumLength(1));
+        return this;
+    }
+
+    /**
+     * Append day of week with leading zero
+     *
+     * @return this
+     * @see #appendDayOfWeek()
+     * @see #appendDayOfWeekLeadingZero()
+     */
+    public RoozhFormatter appendDayOfWeekText() {
+        elements.add(new DayOfWeek().setMinimumLength(3));
+        return this;
+    }
+
+    /**
+     * Append day of week with leading zero
+     *
+     * @return this
+     * @see #appendDayOfWeek()
+     * @see #appendDayOfWeekText()
+     */
+    public RoozhFormatter appendDayOfWeekLeadingZero() {
+        elements.add(new DayOfWeek().setMinimumLength(2));
+        return this;
+    }
+
+    /**
+     * Append day of week with no leading zero
+     *
+     * @return this
+     * @see #appendDayOfWeekLeadingZero()
+     * @see #appendDayOfWeekText()
+     */
+    public RoozhFormatter appendDayOfWeek() {
+        elements.add(new DayOfWeek().setMinimumLength(1));
         return this;
     }
 

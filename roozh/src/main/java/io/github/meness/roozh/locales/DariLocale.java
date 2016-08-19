@@ -35,6 +35,11 @@ public class DariLocale extends Roozh {
     }
 
     @Override
+    public String getDayOfWeekText(int dow) {
+        return DayOfWeek.getS(dow);
+    }
+
+    @Override
     public String getAmPmText(int am_pm) {
         if (am_pm == Calendar.AM) {
             return AM;
@@ -46,6 +51,25 @@ public class DariLocale extends Roozh {
     @Override
     public String getMonthName(int month) {
         return Month.getS(month);
+    }
+
+    public enum DayOfWeek {
+        SATURDAY("\u0634\u0646\u0628\u0647"),
+        SUNDAY("\u06cc\u06a9\u200c\u0634\u0646\u0628\u0647"),
+        MONDAY("\u062f\u0648\u0634\u0646\u0628\u0647"),
+        TUESDAY("\u0633\u0647\u200c\u0634\u0646\u0628\u0647"),
+        WEDNESDAY("\u0686\u0647\u0627\u0631\u0634\u0646\u0628\u0647"),
+        THURSDAY("\u067e\u0646\u062c\u200c\u0634\u0646\u0628\u0647"),
+        FRIDAY("\u062c\u0645\u0639\u0647");
+        private String s;
+
+        DayOfWeek(String m) {
+            this.s = m;
+        }
+
+        public static String getS(int i) {
+            return DayOfWeek.values()[i].s;
+        }
     }
 
     public enum Month {

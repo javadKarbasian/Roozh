@@ -35,6 +35,11 @@ public class EnglishLocale extends Roozh {
     }
 
     @Override
+    public String getDayOfWeekText(int dow) {
+        return DayOfWeek.getS(dow);
+    }
+
+    @Override
     public String getAmPmText(int am_pm) {
         if (am_pm == Calendar.AM) {
             return AM;
@@ -46,6 +51,25 @@ public class EnglishLocale extends Roozh {
     @Override
     public String getMonthName(int month) {
         return Month.getS(month);
+    }
+
+    public enum DayOfWeek {
+        SATURDAY("Saturday"),
+        SUNDAY("Sunday"),
+        MONDAY("Monday"),
+        TUESDAY("Tuesday"),
+        WEDNESDAY("Wednesday"),
+        THURSDAY("Thursday"),
+        FRIDAY("Friday");
+        private String s;
+
+        DayOfWeek(String m) {
+            this.s = m;
+        }
+
+        public static String getS(int i) {
+            return DayOfWeek.values()[i].s;
+        }
     }
 
     public enum Month {
